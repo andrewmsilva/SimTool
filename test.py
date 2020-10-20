@@ -1,6 +1,6 @@
 from src.SimTool import Generator
 
-g = Generator('Test', (0, 8), 'test', distribution='normal')
+g = Generator('Test', 'test', interval=(0, 8), distribution='normal')
 
 current_time = 0
 for i in range(10):
