@@ -1,2 +1,2 @@
-from modules.Generator import Generator
+from src.modules.Generator import Generator
         

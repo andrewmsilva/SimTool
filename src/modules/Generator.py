@@ -26,7 +26,6 @@ class Generator(object):
         elif self.__distribution == 'normal':
             interval = range(self.__interval[0], self.__interval[1]+1)
             num = np.random.normal(np.mean(interval), np.std(interval))
-        num = round(num, 2)
         return num
 
     def generate(self, current_time):
@@ -34,4 +33,4 @@ class Generator(object):
         while interval < 0:
             interval = self.__randomNumber()
         
-        return current_time+interval
+        return round(current_time+interval, 2)
