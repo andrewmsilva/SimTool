@@ -49,6 +49,15 @@ class Service(object):
     def __initServers(self):
         self.__servers = [ Server() for i in range(self.__numServers) ]
     
+    def getName(self):
+        return self.__name
+    
+    def addToQueue(self, entities):
+        if isinstance(entities, list):
+            self.__queue += entities
+        elif isinstance(entities, int, float):
+            self.__queue.append(entities)
+        print(self.__queue)
     
     def attend(self, start):
         pass
