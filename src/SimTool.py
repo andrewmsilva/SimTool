@@ -1,11 +1,16 @@
 from src.modules.Generator import Generator
+from src.modules.Service import Service
 
 class Enviroment(object):
     __generator = None
+    __services = []
     __currentTime = 0
 
-    def createGenerator(self, *args):
-        self.__generator = Generator(*args)
+    def createGenerator(self, *args, **kwargs):
+        self.__generator = Generator(*args, **kwargs)
+    
+    def createService(self, *args, **kwargs):
+        self.__services.append(Service(*args, **kwargs))
     
     def run(self, until):
         self.__currentTime = 0
