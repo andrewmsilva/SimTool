@@ -1,8 +1,8 @@
-from src.modules.RandomInterval import RandomInterval
+from src.modules.RandomRange import RandomRange
 
 class Generator(object):
 
-    def __init__(self, name, destination, generation_interval, max_generation, distribution='uniform'):
+    def __init__(self, name, destination, generation_range, distribution='uniform'):
         if not (isinstance(name, str)):
             raise ValueError('Name must be a string')
         self.__name = name
@@ -11,11 +11,8 @@ class Generator(object):
             raise ValueError('Destination must be a string')
         self.__destination = destination
 
-        if not (isinstance(max_generation, (int, float))):
-            raise ValueError('Max generation must be an int or float')
-        self.__maxGeneration = max_generation
-
-        self.__randomGeneration = RandomInterval(generation_interval, distribution)
+        self.__random = RandomRange(generation_range[0], generation_range[1], distribution)
+        self.__next = None
     
     def getName(self):
         return self.__name
@@ -23,17 +20,8 @@ class Generator(object):
     def getDestination(self):
         return self.__destination
     
-    def entities(self, current_time=0):
-        entities = []
-        while current_time <= self.__maxGeneration:
-            current_time = self.newEntity(current_time)
-            if current_time <= self.__maxGeneration:
-                entities.append(current_time)
-        return entities
-
-    def newEntity(self, current_time=0):
-        interval = -1
-        while interval < 0:
-            interval = self.__randomGeneration.get()
+    def getNext(self, current_time=0):
+        if self.__next == None or self.__next < current_time:
+            self.__next = current_time + self.__random.getNumber()
         
-        return round(current_time+interval, 2)
+        return current_time == self.__next
