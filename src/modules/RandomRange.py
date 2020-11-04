@@ -26,7 +26,7 @@ class RandomRange(object):
             if self.__distribution == 'uniform':
                 num = np.random.uniform(self.__min, self.__max)
             elif self.__distribution == 'normal':
-                range = range(self.__min, self.__max+1)
-                num = np.random.normal(np.mean(range), np.std(range))
+                interval = range(self.__min, self.__max+1)
+                num = np.random.normal(np.mean(interval), np.std(interval))
         
         return int(num)
