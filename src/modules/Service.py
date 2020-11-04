@@ -1,4 +1,4 @@
-from src.modules.RandomInterval import RandomInterval
+from src.modules.RandomRange import RandomRange
 
 class Attendance(object):
 
@@ -31,20 +31,24 @@ class Server(object):
 class Service(object):
     __queue = []
 
-    def __init__(self, name, duration_interval, num_servers=1, discipline='FCFS', distribution='uniform'):
+    def __init__(self, name, destination, duration_range, num_servers=1, discipline='FCFS', distribution='uniform'):
         if not (isinstance(name, str)):
             raise ValueError('Name must be a string')
         self.__name = name
 
+        if not (isinstance(destination, str)):
+            raise ValueError('Destination must be a string')
+        self.__destination = destination
+
         if not (isinstance(num_servers, int) and num_servers > 0):
-            raise ValueError('Number of num_servers must be an int greater than 0')
+            raise ValueError('Number of num_servers must be an integer greater than 0')
         self.__numServers = num_servers
         
         if not (discipline == 'FCFS' or discipline == 'LCFS'):
             raise ValueError('Queue discipline must be "FCFS" or "LCFS"')
         self.__discipline = discipline
 
-        self.__randomDuration = RandomInterval(duration_interval, distribution)
+        self.__randomDuration = RandomRange(duration_range[0], duration_range[1], distribution)
     
     def __initServers(self):
         self.__servers = [ Server() for i in range(self.__numServers) ]
@@ -52,12 +56,14 @@ class Service(object):
     def getName(self):
         return self.__name
     
-    def addToQueue(self, entities):
-        if isinstance(entities, list):
-            self.__queue += entities
-        elif isinstance(entities, int, float):
-            self.__queue.append(entities)
-        print(self.__queue)
+    def getDestination(self):
+        return self.__destination
+    
+    def addToQueue(self, entity):
+        self.__queue.append(entity)
+    
+    def getQueue(self):
+        return self.__queue
     
     def attend(self, start):
         pass
