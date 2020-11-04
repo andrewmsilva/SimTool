@@ -4,10 +4,10 @@ class RandomRange(object):
     
     def __init__(self, min, max, distribution='uniform'):
         if not (isinstance(min, int)):
-            raise ValueError('Min value must be integer')
+            raise ValueError('Min value must be an integer')
             
         if not (isinstance(max, int)):
-            raise ValueError('Max value must be integer')
+            raise ValueError('Max value must be an integer')
 
         if not (min < max):
             raise ValueError('Min value must be lower than max value')
