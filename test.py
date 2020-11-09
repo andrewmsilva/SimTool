@@ -1,6 +1,6 @@
 from src.SimTool import Enviroment
 
 env = Enviroment()
-env.createService('Recepção', "None", (4, 8), num_servers=2, distribution='normal')
-env.createGenerator('Pacientes', 'Recepção', (1, 8), distribution='normal')
+env.createService('Recepção', 'Médicos', 3, 7, 'normal', 2)
+env.createGenerator('Paciente', 'Recepção', 1, 8, 'normal')
 env.run(stop_at=60)
