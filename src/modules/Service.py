@@ -1,6 +1,7 @@
 from src.modules.Random import Random
 from src.modules.Server import Server
 from src.modules.Interim import Interim
+from copy import deepcopy
 
 class Service(Random):
     
@@ -24,7 +25,7 @@ class Service(Random):
             raise ValueError('Queue discipline must be "FCFS" or "LCFS"')
         self.__discipline = discipline
 
-        self.__input = []
+        self.__queue = []
         self.__output = []
 
     def __initServers(self):
@@ -36,29 +37,35 @@ class Service(Random):
     def getTarget(self):
         return self.__target
     
-    def inputInterim(self, interim):
+    def receiveInterim(self, interim):
         if not (isinstance(interim, Interim)):
-            raise ValueError('Only Interim objects can be added to queue')
-        self.__input.append(interim)
+            raise ValueError('Only Interim objects can be imputed')
+        self.__queue.append(interim)
     
-    def getQueue(self):
-        return self.__input
+    def sendInterims(self):
+        output = self.__output[:]
+        self.__output = []
+        return output
     
     def __getNextInterim(self):
+        interim = None
         if self.__discipline == 'FCFS':
-            return self.__input.pop(0)
+            interim = deepcopy(self.__queue[0])
+            del self.__queue[0]
         elif self.__discipline == 'LCFS':
-            return self.__input.pop()
+            interim = deepcopy(self.__queue[-1])
+            del self.__queue[-1]
+        return interim
     
     def attend(self, current_time):
         for i in range(self.__numServers):
             server = self.__servers[i]
-            if len(self.__input) > 0:
+            if len(self.__queue) > 0:
                 if not server.busy(current_time):
                     interim = self.__getNextInterim()
                     duration = self.getRandomNumber()
                     server.attend(interim, current_time, duration)
                     print(self.__name+':', interim.getName(), 'arrived at', interim.getTime(), 'and attended by server', i, 'from', current_time, 'to', current_time+duration)
 
-                    #interim.appendEvent(current_time, duration)
+                    interim.appendEvent(self.__name, current_time, duration)
                     self.__output.append(interim)
