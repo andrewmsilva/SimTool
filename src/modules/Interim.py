@@ -18,5 +18,5 @@ class Interim(object):
         last_event = self.__events[-1]
         return last_event.getEnd()
     
-    def appendEvent(self, current_time, duration):
-        self.__events.append(Event(self.__name, current_time, current_time+duration, duration))
+    def appendEvent(self, component_name, current_time, duration):
+        self.__events.append(Event(component_name, current_time, current_time+duration, duration))
