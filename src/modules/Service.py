@@ -37,9 +37,14 @@ class Service(Random):
     def getTarget(self):
         return self.__target
     
+    def __printLog(self, *args):
+        print(self.__name+':', *args)
+
+    
     def receiveInterim(self, interim):
         if not (isinstance(interim, Interim)):
             raise ValueError('Only Interim objects can be imputed')
+        self.__printLog(interim.getName(), 'entered the queue at', interim.getTime())
         self.__queue.append(interim)
     
     def sendInterims(self, current_time):
@@ -49,6 +54,7 @@ class Service(Random):
             try:
                 interim = self.__output[i]
                 if interim.getTime() <= current_time:
+                    self.__printLog(interim.getName(), 'ended the service at', current_time, 'with duration', interim.getLastDuration())
                     output.append(deepcopy(interim))
                     del self.__output[i-removed]
                     removed += 1
@@ -75,7 +81,7 @@ class Service(Random):
                     interim = self.__getNextInterim()
                     duration = self.getRandomNumber()
                     server.attend(interim, current_time, duration)
-                    print(self.__name+':', interim.getName(), 'arrived at', interim.getTime(), 'and attended by server', i, 'from', current_time, 'to', current_time+duration)
+                    self.__printLog(interim.getName(), 'started the service at', current_time, 'by server', i)
 
                     interim.appendEvent(self.__name, current_time, duration)
                     self.__output.append(interim)
