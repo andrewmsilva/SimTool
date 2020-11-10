@@ -36,13 +36,13 @@ class Enviroment(object):
     
     def __runServices(self):
         for service in self.__services:
-            service.attend(self.__currentTime)
-
             component = self.__findComponentByName(service.getTarget())
             if component:
                 interims = service.sendInterims(self.__currentTime)
                 for interim in interims:
                     component.receiveInterim(interim)
+        
+            service.attend(self.__currentTime)
     
     def run(self, stop_at=None, stop_until=None):
         self.__currentTime = 0
