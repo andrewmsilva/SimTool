@@ -1,11 +1,13 @@
 from src.modules.Generator import Generator
 from src.modules.Service import Service
+from src.modules.Terminator import Terminator
 
 class Enviroment(object):
 
     def __init__(self):
         self.__generators = []
         self.__services = []
+        self.__terminators = []
         self.__currentTime = 0
 
     def createGenerator(self, *args, **kwargs):
@@ -14,10 +16,16 @@ class Enviroment(object):
     def createService(self, *args, **kwargs):
         self.__services.append(Service(*args, **kwargs))
     
+    def createTerminator(self, *args, **kwargs):
+        self.__terminators.append(Terminator(*args, **kwargs))
+    
     def __findComponentByName(self, name):
         for service in self.__services:
             if service.getName() == name:
                 return service
+        for terminator in self.__terminators:
+            if terminator.getName() == name:
+                return terminator
     
     def __runGenerators(self):
         for generator in self.__generators:
@@ -32,10 +40,9 @@ class Enviroment(object):
 
             component = self.__findComponentByName(service.getTarget())
             if component:
-                interims = service.sendInterims()
+                interims = service.sendInterims(self.__currentTime)
                 for interim in interims:
                     component.receiveInterim(interim)
-                    self.__runServices()
     
     def run(self, stop_at=None, stop_until=None):
         self.__currentTime = 0
