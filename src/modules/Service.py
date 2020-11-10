@@ -42,9 +42,19 @@ class Service(Random):
             raise ValueError('Only Interim objects can be imputed')
         self.__queue.append(interim)
     
-    def sendInterims(self):
-        output = self.__output[:]
-        self.__output = []
+    def sendInterims(self, current_time):
+        output = []
+        removed = 0
+        for i in range(len(self.__output)):
+            try:
+                interim = self.__output[i]
+                if interim.getTime() <= current_time:
+                    output.append(deepcopy(interim))
+                    del self.__output[i-removed]
+                    removed += 1
+            except:
+                pass
+        
         return output
     
     def __getNextInterim(self):
