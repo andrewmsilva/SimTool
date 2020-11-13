@@ -63,6 +63,9 @@ class Service(Random):
         
         return output
     
+    def isEmpty(self):
+        return len(self.__queue) == 0 and len(self.__output) == 0
+    
     def __getNextInterim(self):
         interim = None
         if self.__discipline == 'FCFS':
