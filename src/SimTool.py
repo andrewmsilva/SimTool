@@ -28,11 +28,12 @@ class Enviroment(object):
                 return terminator
     
     def __runGenerators(self):
-        for generator in self.__generators:
-            interim = generator.getNext(self.__currentTime)
-            if interim:
-                component = self.__findComponentByName(generator.getTarget())
-                component.receiveInterim(interim)
+        if self.__currentTime <= self.__stopAt:
+            for generator in self.__generators:
+                interim = generator.getNext(self.__currentTime)
+                if interim:
+                    component = self.__findComponentByName(generator.getTarget())
+                    component.receiveInterim(interim)
     
     def __runServices(self):
         for service in self.__services:
@@ -43,11 +44,21 @@ class Enviroment(object):
                     component.receiveInterim(interim)
         
             service.attend(self.__currentTime)
+
+    def __isRunning(self):
+        result = False
+        for service in self.__services:
+            if not service.isEmpty():
+                result = True
+        return result or self.__currentTime <= self.__stopAt
     
-    def run(self, stop_at=None, stop_until=None):
+    def run(self, stop_at):
+        if not isinstance(stop_at, int):
+            raise ValueError('Stop at must be integer')
+        self.__stopAt = stop_at
         self.__currentTime = 0
         
-        while (stop_at == None or self.__currentTime <= stop_at):
+        while self.__isRunning():
             self.__runGenerators()
             self.__runServices()
             self.__currentTime += 1
