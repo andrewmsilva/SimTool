@@ -3,7 +3,7 @@ from src.modules.Interim import Interim
 
 class Generator(Random):
 
-    def __init__(self, name, target, min_range, max_range, distribution):
+    def __init__(self, name, target, min_range, max_range, distribution='uniform'):
         super(Generator, self).__init__(min_range, max_range, distribution)
 
         if not (isinstance(name, str)):

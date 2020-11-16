@@ -5,7 +5,7 @@ from copy import deepcopy
 
 class Service(Random):
     
-    def __init__(self, name, target, min_range, max_range, distribution, num_servers=1, discipline='FCFS'):
+    def __init__(self, name, target, min_range, max_range, distribution='uniform', num_servers=1, discipline='FCFS'):
         super(Service, self).__init__(min_range, max_range, distribution)
 
         if not (isinstance(name, str)):
