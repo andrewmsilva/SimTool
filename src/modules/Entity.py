@@ -1,14 +1,9 @@
 from src.modules.Event import Event
 
-class Interim(object):
+class Entity(object):
 
     def __init__(self, name, initial_time):
-        if not (isinstance(name, str)):
-            raise ValueError('Name must be a string')
         self.__name = name
-
-        if not (isinstance(initial_time, int)):
-            raise ValueError('Initial time must be an integer')
         self.__events = [Event(self.__name, initial_time, initial_time, 0)]
 
     def getName(self):
