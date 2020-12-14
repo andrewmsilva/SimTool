@@ -1,85 +1,83 @@
 from src.modules.Generator import Generator
-from src.modules.Service import Service
+from src.modules.Process import Process
+from src.modules.Router import Router
 from src.modules.Terminator import Terminator
 
 class Enviroment(object):
 
-    def __init__(self):
-        self.__components = []
-        self.__currentTime = 0
+    def __init__(self, start_time=0):
+        self.__components = {}
+        self.__startTime = start_time
+        self.__currentTime = start_time
 
     # Component creation methods
     
-    def __nameAvailability(self, name):
-        for component in self.__components:
-            if component.getName() == name:
-                return False
-        return True
+    def __nameInUse(self, name):
+        return name in self.__components.keys()
     
     def createGenerator(self, name, *args, **kwargs):
-        if not self.__nameAvailability(name):
+        if self.__nameInUse(name):
             raise ValueError('Component name "' + name + '" is already in use!')
-        self.__components.append(Generator(name, *args, **kwargs))
+        self.__components[name] = Generator(name, *args, **kwargs)
     
-    def createService(self, name, *args, **kwargs):
-        if not self.__nameAvailability(name):
+    def createProcess(self, name, *args, **kwargs):
+        if self.__nameInUse(name):
             raise ValueError('Component name "' + name + '" is already in use!')
-        self.__components.append(Service(name, *args, **kwargs))
+        self.__components[name] = Process(name, *args, **kwargs)
+    
+    def createRouter(self, name, *args, **kwargs):
+        if self.__nameInUse(name):
+            raise ValueError('Component name "' + name + '" is already in use!')
+        self.__components[name] = Router(name, *args, **kwargs)
     
     def createTerminator(self, name, *args, **kwargs):
-        if not self.__nameAvailability(name):
+        if self.__nameInUse(name):
             raise ValueError('Component name "' + name + '" is already in use!')
-        self.__components.append(Terminator(name, *args, **kwargs))
+        self.__components[name] = Terminator(name, *args, **kwargs)
     
-    # Component get methods
-
-    def __getComponentByName(self, name):
-        for component in self.__components:
-            if component.getName() == name:
-                return component
+    # Component methods
     
-    def __getComponentByType(self, component_type):
-        for component in self.__components:
+    def __getComponentsByType(self, component_type):
+        for name, component in self.__components.items():
             if isinstance(component, component_type):
                 yield component
     
-    # Component running methods
+    def __routeEntity(self, origin, entity):
+        target = self.__components[origin.getTarget()]
+        if isinstance(target, (Process, Terminator)):
+            target.receiveEntity(entity)
+        elif isinstance(target, Router):
+            self.__routeEntity(target, entity)
 
     def __runGenerators(self):
         if self.__currentTime <= self.__stopAt:
-            for generator in self.__getComponentByType(Generator):
-                interim = generator.getNext(self.__currentTime)
-                if interim:
-                    component = self.__getComponentByName(generator.getTarget())
-                    component.receiveInterim(interim)
+            for generator in self.__getComponentsByType(Generator):
+                entity = generator.getEntity(self.__currentTime)
+                if entity:
+                    self.__routeEntity(generator, entity)
     
-    def __runServices(self):
-        for service in self.__getComponentByType(Service):
-            component = self.__getComponentByName(service.getTarget())
-            if component:
-                interims = service.sendInterims(self.__currentTime)
-                for interim in interims:
-                    component.receiveInterim(interim)
-        
-            service.attend(self.__currentTime)
+    def __runProcesses(self):
+        for process in self.__getComponentsByType(Process):
+            entities = process.outputEntities(self.__currentTime)
+            for entity in entities:
+                self.__routeEntity(process, entity)
+            
+            process.process(self.__currentTime)
 
     # Evironment running methods
 
     def __isRunning(self):
         result = False
-        for service in self.__getComponentByType(Service):
-            if not service.isEmpty():
+        for process in self.__getComponentsByType(Process):
+            if not process.isEmpty():
                 result = True
         return result or self.__currentTime <= self.__stopAt
     
     def run(self, stop_at):
-        if not isinstance(stop_at, int):
-            raise ValueError('Stop at must be integer')
-            
         self.__stopAt = stop_at
         self.__currentTime = 0
         
         while self.__isRunning():
             self.__runGenerators()
-            self.__runServices()
+            self.__runProcesses()
             self.__currentTime += 1
