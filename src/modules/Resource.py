@@ -1,13 +1,17 @@
 from src.modules.Event import Event
 
-class Server(object):
+class Resource(object):
 
-    def __init__(self):
+    def __init__(self, name):
+        self.__name = name
         self.__events = []
+    
+    def getName(self):
+        return self.__name
 
-    def attend(self, interim, current_time, duration):
+    def process(self, entity, current_time, duration):
         if not self.busy(current_time):
-            self.__events.append(Event(interim.getName(), current_time, current_time+duration, duration))
+            self.__events.append(Event(entity.getName(), current_time, current_time+duration, duration))
 
     def busy(self, current_time):
         last_event = None
