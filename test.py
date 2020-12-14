@@ -13,7 +13,7 @@ model.createGenerator(
 
 model.createProcess(
     name='Reception',
-    target='Router',
+    target='Medical',
     min_range=7,
     max_range=12,
     distribution='normal',
@@ -21,15 +21,9 @@ model.createProcess(
     resource_name='Receptionist'
 )
 
-model.createRouter(
-    name='Router',
-    targets=['Medical', 'End'],
-    distribution='uniform'
-)
-
 model.createProcess(
     name='Medical',
-    target='Reception',
+    target='End',
     min_range=15,
     max_range=25,
     distribution='normal',
