@@ -1,15 +1,12 @@
-class Terminator(object):
+from src.modules.Component import Component
+
+class Terminator(Component):
 
     def __init__(self, name):
-        if not (isinstance(name, str)):
-            raise ValueError('Name must be a string')
-        self.__name = name
+        super(Terminator, self).__init__(name)
 
-        self.__interims = []
+        self.__entities = []
     
-    def getName(self):
-        return self.__name
-
-    def receiveInterim(self, interim):
-        print(self.__name+':', interim.getName(), 'finished the simulation at', interim.getTime())
-        self.__interims.append(interim)
+    def receiveEntity(self, entity):
+        self.printLog(entity.getName(), 'finished the simulation at', entity.getTime())
+        self.__entities.append(entity)
