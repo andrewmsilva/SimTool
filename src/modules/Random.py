@@ -6,6 +6,11 @@ class Random(object):
         self.__minRange = min_range
         self.__maxRange = max_range
         self.__distribution = distribution
+
+        if self.__distribution == 'normal':
+            interval = range(self.__minRange, self.__maxRange+1)
+            self.__mean = np.mean(interval)
+            self.__std = np.std(interval)
     
     def getRandomNumber(self):
         num = None
@@ -13,7 +18,6 @@ class Random(object):
             if self.__distribution == 'uniform':
                 num = np.random.uniform(self.__minRange, self.__maxRange)
             elif self.__distribution == 'normal':
-                interval = range(self.__minRange, self.__maxRange+1)
-                num = np.random.normal(np.mean(interval), np.std(interval))
-        
-        return int(num)
+                num = np.random.normal(self.__mean, self.__std)
+
+        return int(np.rint(num))
