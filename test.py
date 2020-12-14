@@ -1,8 +1,8 @@
-from src.SimTool import Enviroment
+from src.SimTool import Model
 
-env = Enviroment()
+model = Model()
 
-env.createGenerator(
+model.createGenerator(
     name='chegada',
     target='recepção',
     min_range=2,
@@ -11,9 +11,9 @@ env.createGenerator(
     entity_name='paciente'
 )
 
-env.createProcess(
+model.createProcess(
     name='recepção',
-    target='consulta',
+    target='roteador',
     min_range=7,
     max_range=12,
     distribution='normal',
@@ -21,15 +21,21 @@ env.createProcess(
     resource_name='atendente'
 )
 
-env.createProcess(
+model.createRouter(
+    name='roteador',
+    targets=['consulta', 'saída'],
+    distribution='uniform'
+)
+
+model.createProcess(
     name='consulta',
-    target='saída',
+    target='recepção',
     min_range=15,
     max_range=25,
     distribution='normal',
     resource_name='médico'
 )
 
-env.createTerminator(name='saída')
+model.createTerminator(name='saída')
 
-env.run(stop_at=30)
+model.run(stop_at=30)
