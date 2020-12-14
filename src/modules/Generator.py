@@ -1,33 +1,22 @@
-from src.modules.Random import Random
-from src.modules.Interim import Interim
+from src.modules.Entity import Entity
+from src.modules.Component import Component
 
-class Generator(Random):
+class Generator(Component):
 
-    def __init__(self, name, target, min_range, max_range, distribution='uniform'):
-        super(Generator, self).__init__(min_range, max_range, distribution)
+    def __init__(self, name, target, min_range, max_range, distribution='uniform', entity_name='entity'):
+        super(Generator, self).__init__(name, target)
 
-        if not (isinstance(name, str)):
-            raise ValueError('Name must be a string')
-        self.__name = name
+        self.setRandom(min_range, max_range, distribution)
 
-        if not (isinstance(target, str)):
-            raise ValueError('Target must be a string')
-        self.__target = target
-
-        self.__nextInterim = None
+        self.__entityName = entity_name
+        self.__nextEntity = None
         self.__nextId = 0
     
-    def getName(self):
-        return self.__name
-    
-    def getTarget(self):
-        return self.__target
-    
-    def getNext(self, current_time=0):
-        if self.__nextInterim == None or self.__nextInterim.getTime() < current_time:
-            self.__nextInterim = Interim(self.__name+' '+str(self.__nextId), current_time + self.getRandomNumber())
+    def getEntity(self, current_time=0):
+        if self.__nextEntity == None or self.__nextEntity.getTime() < current_time:
+            self.__nextEntity = Entity(self.__entityName+' '+str(self.__nextId), current_time + self.getRandomNumber())
             self.__nextId += 1
-        if current_time == self.__nextInterim.getTime():
-            return self.__nextInterim
+        if current_time == self.__nextEntity.getTime():
+            return self.__nextEntity
         else:
             return False
