@@ -3,7 +3,7 @@ from src.modules.Process import Process
 from src.modules.Router import Router
 from src.modules.Terminator import Terminator
 
-class Enviroment(object):
+class Model(object):
 
     def __init__(self, start_time=0):
         self.__components = {}
