@@ -81,3 +81,4 @@ class Model(object):
             self.__runGenerators()
             self.__runProcesses()
             self.__currentTime += 1
+        print('Simulation ended')
