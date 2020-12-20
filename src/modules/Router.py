@@ -12,3 +12,12 @@ class Router(Component):
         target = self.__targets[self.getRandomNumber()]
         self.printLog('routed to', target)
         return target
+    
+    def writeMe(self, writer, columns):
+        row = { key: None for key in columns }
+        row['type'] = 'R'
+        row['name'] = self.getName()
+        row['target'] = '[\'\'\'' + '\'\'\',\'\'\''.join(self.__targets) + '\'\'\']'
+        row['distribution'] = self.getDistribution()
+
+        writer.writerow(row)
