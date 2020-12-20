@@ -11,6 +11,15 @@ class Random(object):
             interval = range(self.__minRange, self.__maxRange+1)
             self.__mean = np.mean(interval)
             self.__std = np.std(interval)
+
+    def getMinRange(self):
+        return self.__minRange
+    
+    def getMaxRange(self):
+        return self.__maxRange
+
+    def getDistribution(self):
+        return self.__distribution
     
     def getRandomNumber(self):
         num = None
