@@ -10,3 +10,10 @@ class Terminator(Component):
     def receiveEntity(self, entity):
         self.printLog(entity.getName(), 'finished the simulation at', entity.getTime())
         self.__entities.append(entity)
+    
+    def writeMe(self, writer, columns):
+        row = { key: None for key in columns }
+        row['type'] = 'R'
+        row['name'] = self.getName()
+
+        writer.writerow(row)
