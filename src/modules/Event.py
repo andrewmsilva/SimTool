@@ -1,13 +1,13 @@
 class Event(object):
 
-    def __init__(self, interim_name, start, end, duration):
-        self.__interimName = interim_name
+    def __init__(self, entity_name, start, end, duration):
+        self.__entityName = entity_name
         self.__start = start
         self.__end = end
         self.__duration = duration
     
     def getInterimName(self):
-        return self.__interimName
+        return self.__entityName
     
     def getStart(self):
         return self.__start
