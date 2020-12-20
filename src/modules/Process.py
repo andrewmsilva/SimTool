@@ -64,3 +64,17 @@ class Process(Component):
 
                     entity.appendEvent(self.getName(), current_time, duration)
                     self.__output.append(entity)
+    
+    def writeMe(self, writer, columns):
+        row = { key: None for key in columns }
+        row['type'] = 'P'
+        row['name'] = self.getName()
+        row['target'] = self.getTarget()
+        row['min_range'] = self.getMinRange()
+        row['max_range'] = self.getMaxRange()
+        row['distribution'] = self.getDistribution()
+        row['num_resources'] = self.__numResources
+        row['resource_name'] = self.__resourceName
+        row['discipline'] = self.__discipline
+
+        writer.writerow(row)
