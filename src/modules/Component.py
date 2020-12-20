@@ -16,6 +16,15 @@ class Component(object):
     def setRandom(self, min_range, max_range, distribution):
         self.__random = Random(min_range, max_range, distribution)
     
+    def getMinRange(self):
+        return self.__random.getMinRange()
+    
+    def getMaxRange(self):
+        return self.__random.getMaxRange()
+
+    def getDistribution(self):
+        return self.__random.getDistribution()
+    
     def getRandomNumber(self):
         return self.__random.getRandomNumber()
 
