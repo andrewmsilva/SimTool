@@ -64,7 +64,7 @@ class Model(object):
             
             process.process(self.__currentTime)
 
-    # Evironment running methods
+    # Model running methods
 
     def __isRunning(self):
         result = False
@@ -75,7 +75,7 @@ class Model(object):
     
     def run(self, stop_at):
         self.__stopAt = stop_at
-        self.__currentTime = 0
+        self.__currentTime = self.__startTime
         
         while self.__isRunning():
             self.__runGenerators()
