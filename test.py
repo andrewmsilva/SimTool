@@ -1,6 +1,6 @@
 from src.SimTool import Model
 
-model = Model()
+model = Model(stop_time=30)
 
 model.createGenerator(
     name='Begin',
@@ -13,7 +13,7 @@ model.createGenerator(
 
 model.createProcess(
     name='Reception',
-    target='Medical',
+    target='Decision',
     min_range=7,
     max_range=12,
     distribution='normal',
@@ -21,9 +21,14 @@ model.createProcess(
     resource_name='Receptionist'
 )
 
+model.createRouter(
+    name='Decision',
+    targets=['Medical', 'End']
+)
+
 model.createProcess(
     name='Medical',
-    target='End',
+    target='Reception',
     min_range=15,
     max_range=25,
     distribution='normal',
@@ -32,4 +37,5 @@ model.createProcess(
 
 model.createTerminator(name='End')
 
-model.run(stop_at=30)
+model.save('model.csv')
+model.run()
