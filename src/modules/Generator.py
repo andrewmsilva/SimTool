@@ -20,3 +20,15 @@ class Generator(Component):
             return self.__nextEntity
         else:
             return False
+    
+    def writeMe(self, writer, columns):
+        row = { key: None for key in columns }
+        row['type'] = 'G'
+        row['name'] = self.getName()
+        row['target'] = self.getTarget()
+        row['min_range'] = self.getMinRange()
+        row['max_range'] = self.getMaxRange()
+        row['distribution'] = self.getDistribution()
+        row['entity_name'] = self.__entityName
+
+        writer.writerow(row)
