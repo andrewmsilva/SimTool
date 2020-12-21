@@ -21,7 +21,7 @@ class Generator(Component):
         else:
             return False
     
-    def writeMe(self, writer, columns):
+    def saveMe(self, writer, columns):
         row = { key: None for key in columns }
         row['type'] = 'G'
         row['name'] = self.getName()
