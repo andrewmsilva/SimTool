@@ -13,11 +13,11 @@ class Router(Component):
         self.printLog('routed to', target)
         return target
     
-    def writeMe(self, writer, columns):
+    def saveMe(self, writer, columns):
         row = { key: None for key in columns }
         row['type'] = 'R'
         row['name'] = self.getName()
-        row['target'] = '[\'\'\'' + '\'\'\',\'\'\''.join(self.__targets) + '\'\'\']'
+        row['target'] = '$$'.join(self.__targets)
         row['distribution'] = self.getDistribution()
 
         writer.writerow(row)
