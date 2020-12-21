@@ -8,12 +8,12 @@ class Terminator(Component):
         self.__entities = []
     
     def receiveEntity(self, entity):
-        self.printLog(entity.getName(), 'finished the simulation at', entity.getTime())
+        self.printLog(entity.name, 'finished the simulation at', entity.currentTime)
         self.__entities.append(entity)
     
     def saveMe(self, writer, columns):
         row = { key: None for key in columns }
         row['type'] = 'T'
-        row['name'] = self.getName()
+        row['name'] = self.name
 
         writer.writerow(row)

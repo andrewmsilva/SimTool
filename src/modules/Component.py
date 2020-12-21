@@ -7,23 +7,28 @@ class Component(object):
         self.__target = target
         self.__random = None
     
-    def getName(self):
+    @property
+    def name(self):
         return self.__name
-    
-    def getTarget(self):
+
+    @property
+    def target(self):
         return self.__target
     
     def setRandom(self, min_range, max_range, distribution):
         self.__random = Random(min_range, max_range, distribution)
     
-    def getMinRange(self):
-        return self.__random.getMinRange()
+    @property
+    def minRange(self):
+        return self.__random.minRange
     
-    def getMaxRange(self):
-        return self.__random.getMaxRange()
+    @property
+    def maxRange(self):
+        return self.__random.maxRange
 
-    def getDistribution(self):
-        return self.__random.getDistribution()
+    @property
+    def distribution(self):
+        return self.__random.distribution
     
     def getRandomNumber(self):
         return self.__random.getRandomNumber()

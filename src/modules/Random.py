@@ -12,13 +12,16 @@ class Random(object):
             self.__mean = np.mean(interval)
             self.__std = np.std(interval)
 
-    def getMinRange(self):
+    @property
+    def minRange(self):
         return self.__minRange
     
-    def getMaxRange(self):
+    @property
+    def maxRange(self):
         return self.__maxRange
 
-    def getDistribution(self):
+    @property
+    def distribution(self):
         return self.__distribution
     
     def getRandomNumber(self):

@@ -62,7 +62,7 @@ class Model(object):
                 yield component
     
     def __routeEntity(self, origin, entity):
-        target = self.__components[origin.getTarget()]
+        target = self.__components[origin.target]
         if isinstance(target, (Process, Terminator)):
             target.receiveEntity(entity)
         elif isinstance(target, Router):
@@ -71,7 +71,7 @@ class Model(object):
     def __runGenerators(self):
         if self.__currentTime <= self.__stopTime:
             for generator in self.__getComponentsByType(Generator):
-                entity = generator.getEntity(self.__currentTime)
+                entity = generator.generateEntity(self.__currentTime)
                 if entity:
                     self.__routeEntity(generator, entity)
     

@@ -8,7 +8,8 @@ class Router(Component):
 
         self.setRandom(0, len(targets)-1, distribution)
     
-    def getTarget(self):
+    @property
+    def target(self):
         target = self.__targets[self.getRandomNumber()]
         self.printLog('routed to', target)
         return target
@@ -16,8 +17,8 @@ class Router(Component):
     def saveMe(self, writer, columns):
         row = { key: None for key in columns }
         row['type'] = 'R'
-        row['name'] = self.getName()
+        row['name'] = self.name
         row['target'] = '$$'.join(self.__targets)
-        row['distribution'] = self.getDistribution()
+        row['distribution'] = self.distribution
 
         writer.writerow(row)

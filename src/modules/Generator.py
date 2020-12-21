@@ -12,11 +12,11 @@ class Generator(Component):
         self.__nextEntity = None
         self.__nextId = 0
     
-    def getEntity(self, current_time=0):
-        if self.__nextEntity == None or self.__nextEntity.getTime() < current_time:
+    def generateEntity(self, current_time=0):
+        if self.__nextEntity == None or self.__nextEntity.currentTime < current_time:
             self.__nextEntity = Entity(self.__entityName+' '+str(self.__nextId), current_time + self.getRandomNumber())
             self.__nextId += 1
-        if current_time == self.__nextEntity.getTime():
+        if current_time == self.__nextEntity.currentTime:
             return self.__nextEntity
         else:
             return False
@@ -24,11 +24,11 @@ class Generator(Component):
     def saveMe(self, writer, columns):
         row = { key: None for key in columns }
         row['type'] = 'G'
-        row['name'] = self.getName()
-        row['target'] = self.getTarget()
-        row['min_range'] = self.getMinRange()
-        row['max_range'] = self.getMaxRange()
-        row['distribution'] = self.getDistribution()
+        row['name'] = self.name
+        row['target'] = self.target
+        row['min_range'] = self.minRange
+        row['max_range'] = self.maxRange
+        row['distribution'] = self.distribution
         row['entity_name'] = self.__entityName
 
         writer.writerow(row)

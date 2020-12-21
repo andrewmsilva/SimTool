@@ -6,14 +6,18 @@ class Event(object):
         self.__end = end
         self.__duration = duration
     
-    def getInterimName(self):
+    @property
+    def name(self):
         return self.__entityName
     
-    def getStart(self):
+    @property
+    def start(self):
         return self.__start
     
-    def getEnd(self):
+    @property
+    def end(self):
         return self.__end
     
-    def getDuration(self):
+    @property
+    def duration(self):
         return self.__duration

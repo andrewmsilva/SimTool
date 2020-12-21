@@ -20,7 +20,7 @@ class Process(Component):
         self.__output = []
     
     def receiveEntity(self, entity):
-        self.printLog(entity.getName(), 'entered the queue at', entity.getTime())
+        self.printLog(entity.name, 'entered the queue at', entity.currentTime)
         self.__queue.append(entity)
     
     def outputEntities(self, current_time):
@@ -29,8 +29,8 @@ class Process(Component):
         for i in range(len(self.__output)):
             try:
                 entity = self.__output[i]
-                if entity.getTime() <= current_time:
-                    self.printLog(entity.getName(), 'finished the process at', current_time, 'with duration', entity.getLastDuration())
+                if entity.currentTime <= current_time:
+                    self.printLog(entity.name, 'finished the process at', current_time, 'with duration', entity.lastDuration)
                     output.append(deepcopy(entity))
                     del self.__output[i-removed]
                     removed += 1
@@ -60,19 +60,19 @@ class Process(Component):
                     entity = self.__getNextEntity()
                     duration = self.getRandomNumber()
                     resource.process(entity, current_time, duration)
-                    self.printLog(entity.getName(), 'started the process at', current_time, 'by', resource.getName())
+                    self.printLog(entity.name, 'started the process at', current_time, 'by', resource.name)
 
-                    entity.appendEvent(self.getName(), current_time, duration)
+                    entity.appendEvent(self.name, current_time, duration)
                     self.__output.append(entity)
     
     def saveMe(self, writer, columns):
         row = { key: None for key in columns }
         row['type'] = 'P'
-        row['name'] = self.getName()
-        row['target'] = self.getTarget()
-        row['min_range'] = self.getMinRange()
-        row['max_range'] = self.getMaxRange()
-        row['distribution'] = self.getDistribution()
+        row['name'] = self.name
+        row['target'] = self.target
+        row['min_range'] = self.minRange
+        row['max_range'] = self.maxRange
+        row['distribution'] = self.distribution
         row['num_resources'] = self.__numResources
         row['resource_name'] = self.__resourceName
         row['discipline'] = self.__discipline
