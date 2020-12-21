@@ -2,6 +2,6 @@ type,start_time,stop_time,name,target,min_range,max_range,distribution,entity_na
 M,0,30,,,,,,,,,
 G,,,Begin,Reception,2,5,normal,Patient,,,
 P,,,Reception,Decision,7,12,normal,,2,Receptionist,FCFS
-R,,,Decision,"['''Medical''','''End''']",,,uniform,,,,
+R,,,Decision,Medical$$End,,,uniform,,,,
 P,,,Medical,Reception,15,25,normal,,1,Doctor,FCFS
-R,,,End,,,,,,,,
+T,,,End,,,,,,,,
