@@ -11,9 +11,9 @@ class Terminator(Component):
         self.printLog(entity.getName(), 'finished the simulation at', entity.getTime())
         self.__entities.append(entity)
     
-    def writeMe(self, writer, columns):
+    def saveMe(self, writer, columns):
         row = { key: None for key in columns }
-        row['type'] = 'R'
+        row['type'] = 'T'
         row['name'] = self.getName()
 
         writer.writerow(row)
