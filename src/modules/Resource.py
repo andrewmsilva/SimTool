@@ -9,6 +9,10 @@ class Resource(object):
     @property
     def name(self):
         return self.__name
+    
+    @property
+    def events(self):
+        return self.__events
 
     def process(self, entity, current_time, duration):
         if not self.busy(current_time):
