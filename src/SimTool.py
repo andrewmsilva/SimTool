@@ -103,7 +103,7 @@ class Model(object):
     
     # Model saving and loading
 
-    def __writeMe(self, writer):
+    def __saveMe(self, writer):
         row = { key: None for key in self.__columns }
         row['type'] = 'M'
         row['start_time'] = self.__startTime
@@ -116,7 +116,50 @@ class Model(object):
             writer = csv.DictWriter(opened_file, fieldnames=self.__columns)
             writer.writeheader()
             
-            self.__writeMe(writer)
+            self.__saveMe(writer)
 
             for name, component in self.__components.items():
-                component.writeMe(writer, self.__columns)
+                component.saveMe(writer, self.__columns)
+
+    def load(csv_name):
+        model = None
+        with open(csv_name, mode='r') as opened_file:
+            reader = csv.DictReader(opened_file)
+            
+            for row in reader:
+                if row['type'] == 'M':
+                    model = Model(
+                        start_time=int(row['start_time']),
+                        stop_time=int(row['stop_time'])
+                    )
+                elif row['type'] == 'G' and isinstance(model, Model):
+                    model.createGenerator(
+                        name=row['name'],
+                        target=row['target'],
+                        min_range=int(row['min_range']),
+                        max_range=int(row['max_range']),
+                        distribution=row['distribution'],
+                        entity_name=row['entity_name']
+                    )
+                elif row['type'] == 'P' and isinstance(model, Model):
+                    model.createProcess(
+                        name=row['name'],
+                        target=row['target'],
+                        min_range=int(row['min_range']),
+                        max_range=int(row['max_range']),
+                        distribution=row['distribution'],
+                        num_resources=int(row['num_resources']),
+                        resource_name=row['resource_name'],
+                        discipline=row['discipline']
+                    )
+                elif row['type'] == 'R' and isinstance(model, Model):
+                    model.createRouter(
+                        name=row['name'],
+                        targets=row['target'].split('$$'),
+                        distribution=row['distribution']
+                    )
+                elif row['type'] == 'T' and isinstance(model, Model):
+                    model.createTerminator(
+                        name=row['name']
+                    )
+        return model
