@@ -65,7 +65,7 @@ class Process(Component):
                     entity.appendEvent(self.getName(), current_time, duration)
                     self.__output.append(entity)
     
-    def writeMe(self, writer, columns):
+    def saveMe(self, writer, columns):
         row = { key: None for key in columns }
         row['type'] = 'P'
         row['name'] = self.getName()
