@@ -39,8 +39,9 @@ class Process(Component):
         
         return output
     
-    def isEmpty(self):
-        return len(self.__queue) == 0 and len(self.__output) == 0
+    @property
+    def processing(self):
+        return len(self.__queue) > 0 or len(self.__output) > 0
     
     def __getNextEntity(self):
         entity = None
