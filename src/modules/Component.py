@@ -33,5 +33,5 @@ class Component(object):
     def getRandomNumber(self):
         return self.__random.getRandomNumber()
 
-    def printLog(self, *args):
-        print(self.__name+':', *args)
+    def printLog(self, message):
+        print(self.__name+': '+message)
