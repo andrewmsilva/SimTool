@@ -7,23 +7,18 @@ import csv
 
 class Model(object):
 
-    def __init__(self, start_time=0, stop_time=100):
+    def __init__(self):
         self.__components = {}
-        self.__startTime = start_time
-        self.__stopTime = stop_time
-        self.__currentTime = start_time
+        self.__currentTime = 0
         # Columns for saving and loading
         self.__columns = [
-            # Component type (M=Model, G=Generator, P=Process, R=Router, and T=Terminator)
-            'type',
-            # Model attributes (first row)
-            'start_time', 'stop_time',
-            # Component attributes
+            # Component attibutes
+            'type', # G=Generator, P=Process, R=Router, and T=Terminator
             'name', 'target',
             # Random attributes
             'min_range', 'max_range', 'distribution',
             # Generator attributes
-            'entity_name',
+            'max_entities', 'entity_name',
             # Process attributes
             'num_resources', 'resource_name', 'discipline'
         ]
@@ -68,11 +63,10 @@ class Model(object):
             self.__routeEntity(target, entity)
 
     def __runGenerators(self):
-        if self.__currentTime <= self.__stopTime:
-            for generator in self.__getComponentsByType(Generator):
-                entity = generator.generateEntity(self.__currentTime)
-                if entity:
-                    self.__routeEntity(generator, entity)
+        for generator in self.__getComponentsByType(Generator):
+            entity = generator.generateEntity(self.__currentTime)
+            if entity:
+                self.__routeEntity(generator, entity)
     
     def __runProcesses(self):
         for process in self.__getComponentsByType(Process):
@@ -84,17 +78,17 @@ class Model(object):
 
     # Model running methods
 
-    def __isRunning(self):
-        result = False
-        for process in self.__getComponentsByType(Process):
-            if not process.isEmpty():
-                result = True
-        return result or self.__currentTime <= self.__stopTime
+    @property
+    def running(self):
+        for name, component in self.__components.items():
+            if (isinstance(component, Generator) and component.remainingEntities > 0) or (isinstance(component, Process) and component.processing > 0):
+                return True
+        return False
     
     def run(self):
-        self.__currentTime = self.__startTime
+        self.__currentTime = 0
         
-        while self.__isRunning():
+        while self.running:
             self.__runGenerators()
             self.__runProcesses()
             self.__currentTime += 1
@@ -102,42 +96,28 @@ class Model(object):
     
     # Model saving and loading
 
-    def __saveMe(self, writer):
-        row = { key: None for key in self.__columns }
-        row['type'] = 'M'
-        row['start_time'] = self.__startTime
-        row['stop_time'] = self.__stopTime
-
-        writer.writerow(row)
-
     def save(self, csv_name):
         with open(csv_name, mode='w') as opened_file:
             writer = csv.DictWriter(opened_file, fieldnames=self.__columns)
             writer.writeheader()
             
-            self.__saveMe(writer)
-
             for name, component in self.__components.items():
                 component.saveMe(writer, self.__columns)
 
     def load(csv_name):
-        model = None
+        model = Model()
         with open(csv_name, mode='r') as opened_file:
             reader = csv.DictReader(opened_file)
             
             for row in reader:
-                if row['type'] == 'M':
-                    model = Model(
-                        start_time=int(row['start_time']),
-                        stop_time=int(row['stop_time'])
-                    )
-                elif row['type'] == 'G' and isinstance(model, Model):
+                if row['type'] == 'G' and isinstance(model, Model):
                     model.createGenerator(
                         name=row['name'],
                         target=row['target'],
                         min_range=int(row['min_range']),
                         max_range=int(row['max_range']),
                         distribution=row['distribution'],
+                        max_entities=int(row['max_entities']),
                         entity_name=row['entity_name']
                     )
                 elif row['type'] == 'P' and isinstance(model, Model):
