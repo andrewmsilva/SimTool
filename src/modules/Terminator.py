@@ -8,7 +8,7 @@ class Terminator(Component):
         self.__entities = []
     
     def receiveEntity(self, entity):
-        self.printLog(entity.name, 'finished the simulation at', entity.currentTime)
+        self.printLog('{}: {} finished the simulation at {}'.format(self.name, entity.name, entity.currentTime))
         self.__entities.append(entity)
     
     def saveMe(self, writer, columns):
