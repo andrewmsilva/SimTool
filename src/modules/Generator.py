@@ -23,6 +23,7 @@ class Generator(Component):
                 self.__nextEntity = current_time + self.getRandomNumber()
             if self.__nextEntity == current_time:
                 entity = Entity(self.__entityName+' '+str(self.__maxEntities-self.__remainingEntities), current_time)
+                self.printLog('{}: {} has been generated at {}'.format(self.name, entity.name, current_time))
                 self.__remainingEntities -= 1
                 return entity
         return False
