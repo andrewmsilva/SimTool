@@ -10,6 +10,7 @@ class Model(object):
     def __init__(self):
         self.__components = {}
         self.__currentTime = 0
+        self.__logFile = 'simulation.log'
         # Columns for saving and loading
         self.__columns = [
             # Component attibutes
@@ -22,6 +23,16 @@ class Model(object):
             # Process attributes
             'num_resources', 'resource_name', 'discipline'
         ]
+    
+    # Simulation log methods
+
+    def __createLog(self):
+        with open(self.__logFile, 'w'):
+            pass
+
+    def __printLog(self, message):
+        with open(self.__logFile, 'a') as f:
+            f.write(message+'\n')
 
     # Component creation methods
     
@@ -32,21 +43,25 @@ class Model(object):
         if self.__nameInUse(name):
             raise ValueError('Component name "' + name + '" is already in use!')
         self.__components[name] = Generator(name, *args, **kwargs)
+        self.__components[name].printLog = self.__printLog
     
     def createProcess(self, name, *args, **kwargs):
         if self.__nameInUse(name):
             raise ValueError('Component name "' + name + '" is already in use!')
         self.__components[name] = Process(name, *args, **kwargs)
+        self.__components[name].printLog = self.__printLog
     
     def createRouter(self, name, *args, **kwargs):
         if self.__nameInUse(name):
             raise ValueError('Component name "' + name + '" is already in use!')
         self.__components[name] = Router(name, *args, **kwargs)
+        self.__components[name].printLog = self.__printLog
     
     def createTerminator(self, name, *args, **kwargs):
         if self.__nameInUse(name):
             raise ValueError('Component name "' + name + '" is already in use!')
         self.__components[name] = Terminator(name, *args, **kwargs)
+        self.__components[name].printLog = self.__printLog
     
     # Component methods
     
@@ -76,7 +91,7 @@ class Model(object):
             
             process.process(self.__currentTime)
 
-    # Model running methods
+    # Model running method
 
     @property
     def running(self):
@@ -88,11 +103,13 @@ class Model(object):
     def run(self):
         self.__currentTime = 0
         
+        self.__createLog()
+        self.__printLog('Model: simulation started')
         while self.running:
             self.__runGenerators()
             self.__runProcesses()
             self.__currentTime += 1
-        print('Simulation ended')
+        self.__printLog('Model: simulation ended')
     
     # Model saving and loading
 
