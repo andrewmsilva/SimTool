@@ -20,7 +20,7 @@ class Process(Component):
         self.__output = []
     
     def receiveEntity(self, entity):
-        self.printLog(entity.name, 'entered the queue at', entity.currentTime)
+        self.printLog('{}: {} entered the queue at {}'.format(self.name, entity.name, entity.currentTime))
         self.__queue.append(entity)
     
     def outputEntities(self, current_time):
@@ -30,7 +30,7 @@ class Process(Component):
             try:
                 entity = self.__output[i]
                 if entity.currentTime <= current_time:
-                    self.printLog(entity.name, 'finished the process at', current_time, 'with duration', entity.lastDuration)
+                    self.printLog('{}: {} finished the process at {} with duration {}'.format(self.name, entity.name, current_time, entity.lastDuration))
                     output.append(deepcopy(entity))
                     del self.__output[i-removed]
                     removed += 1
@@ -61,7 +61,7 @@ class Process(Component):
                     entity = self.__getNextEntity()
                     duration = self.getRandomNumber()
                     resource.process(entity, current_time, duration)
-                    self.printLog(entity.name, 'started the process at', current_time, 'by', resource.name)
+                    self.printLog('{}: {} started the process at {} by {}'.format(self.name, entity.name, current_time, resource.name))
 
                     entity.appendEvent(self.name, current_time, duration)
                     self.__output.append(entity)
