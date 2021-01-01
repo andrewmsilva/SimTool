@@ -3,23 +3,29 @@ from src.modules.Component import Component
 
 class Generator(Component):
 
-    def __init__(self, name, target, min_range, max_range, distribution='uniform', entity_name='entity'):
+    def __init__(self, name, target, min_range, max_range, distribution='uniform', max_entities=10, entity_name='entity'):
         super(Generator, self).__init__(name, target)
 
         self.setRandom(min_range, max_range, distribution)
 
         self.__entityName = entity_name
+        self.__maxEntities = max_entities
+        self.__remainingEntities = max_entities
         self.__nextEntity = None
-        self.__nextId = 0
+
+    @property
+    def remainingEntities(self):
+        return self.__remainingEntities
     
-    def generateEntity(self, current_time=0):
-        if self.__nextEntity == None or self.__nextEntity.currentTime < current_time:
-            self.__nextEntity = Entity(self.__entityName+' '+str(self.__nextId), current_time + self.getRandomNumber())
-            self.__nextId += 1
-        if current_time == self.__nextEntity.currentTime:
-            return self.__nextEntity
-        else:
-            return False
+    def generateEntity(self, current_time):
+        if self.__remainingEntities > 0:
+            if self.__nextEntity == None or self.__nextEntity < current_time:
+                self.__nextEntity = current_time + self.getRandomNumber()
+            if self.__nextEntity == current_time:
+                entity = Entity(self.__entityName+' '+str(self.__maxEntities-self.__remainingEntities), current_time)
+                self.__remainingEntities -= 1
+                return entity
+        return False
     
     def saveMe(self, writer, columns):
         row = { key: None for key in columns }
@@ -29,6 +35,7 @@ class Generator(Component):
         row['min_range'] = self.minRange
         row['max_range'] = self.maxRange
         row['distribution'] = self.distribution
+        row['max_entities'] = self.__maxEntities
         row['entity_name'] = self.__entityName
 
         writer.writerow(row)
