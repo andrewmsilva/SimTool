@@ -10,7 +10,7 @@ class Model(object):
     def __init__(self):
         self.__components = {}
         self.__currentTime = 0
-        self.__logFile = 'simulation.log'
+        self.__logFile = 'simulation.txt'
         # Columns for saving and loading
         self.__columns = [
             # Component attibutes
