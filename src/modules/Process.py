@@ -20,8 +20,10 @@ class Process(Component):
         self.__resources = [ Resource(self.__resourceName+' '+str(i)) for i in range(self.__numResources) ]
         self.__queue = []
         self.__output = []
+
         self.__queueWaiting = []
         self.__immediateProcessing = 0
+        self.__durations = []
     
     # Input and output management
     
@@ -74,7 +76,9 @@ class Process(Component):
                         self.__queueWaiting.append(waiting_time)
                     else:
                         self.__immediateProcessing += 1
+                    # Processing entity
                     duration = self.getRandomNumber()
+                    self.__durations.append(duration)
                     resource.process(entity, current_time, duration)
                     self.printLog('{}: {} started the process at {} by {}'.format(self.name, entity.name, current_time, resource.name))
 
@@ -107,3 +111,6 @@ class Process(Component):
     
     def reportImmediateProcessing(self):
         return self.__immediateProcessing
+    
+    def reportDurations(self):
+        return self.__durations
