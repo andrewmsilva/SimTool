@@ -2,26 +2,26 @@
   "procesess": [
     {
       "name": "Reception",
-      "resource_idleness": [
-        48,
-        44
+      "resourceIdleness": [
+        36,
+        41
       ],
-      "mean_idleness": 46.0,
-      "min_queue_waiting": 1,
-      "mean_queue_waiting": 1.75,
-      "max_queue_waiting": 4
+      "meanIdleness": 38.5,
+      "minQueueWaiting": 3,
+      "meanQueueWaiting": 6.125,
+      "maxQueueWaiting": 9
     },
     {
       "name": "Medical",
-      "resource_idleness": [
-        19,
-        37,
+      "resourceIdleness": [
+        44,
+        32,
         49
       ],
-      "mean_idleness": 35.0,
-      "min_queue_waiting": 1,
-      "mean_queue_waiting": 3.2,
-      "max_queue_waiting": 8
+      "meanIdleness": 41.666666666666664,
+      "minQueueWaiting": 1,
+      "meanQueueWaiting": 2.75,
+      "maxQueueWaiting": 7
     }
   ]
 }
