@@ -45,4 +45,4 @@ model.createProcess(
 model.createTerminator(name='End')
 
 model.save('model.csv')
-model.run()
+model.run(random_state=0)

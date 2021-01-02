@@ -1,112 +1,112 @@
 Model: simulation started
-Begin: Patient 0 has been generated at 5
-Reception: Patient 0 entered the queue at 5
-Reception: Patient 0 started the process at 5 by Receptionist 0
-Begin: Patient 1 has been generated at 10
-Reception: Patient 1 entered the queue at 10
-Reception: Patient 1 started the process at 10 by Receptionist 1
-Begin: Patient 2 has been generated at 16
-Reception: Patient 2 entered the queue at 16
-Reception: Patient 0 finished the process at 18 with duration 13
-Medical: Patient 0 entered the queue at 18
-Reception: Patient 2 started the process at 18 by Receptionist 0
-Medical: Patient 0 started the process at 18 by Doctor 0
-Reception: Patient 1 finished the process at 21 with duration 11
-Medical: Patient 1 entered the queue at 21
-Medical: Patient 1 started the process at 21 by Doctor 1
-Begin: Patient 3 has been generated at 24
-Reception: Patient 3 entered the queue at 24
-Reception: Patient 3 started the process at 24 by Receptionist 1
-Begin: Patient 4 has been generated at 31
-Reception: Patient 4 entered the queue at 31
-Reception: Patient 2 finished the process at 33 with duration 15
-Medical: Patient 2 entered the queue at 33
-Reception: Patient 4 started the process at 33 by Receptionist 0
-Medical: Patient 2 started the process at 33 by Doctor 2
-Reception: Patient 3 finished the process at 36 with duration 12
-Medical: Patient 3 entered the queue at 36
-Medical: Patient 0 finished the process at 36 with duration 18
-Pharmacy: Patient 0 entered the queue at 36
-Medical: Patient 3 started the process at 36 by Doctor 0
-Pharmacy: Patient 0 started the process at 36 by Pharmaceutical
+Begin: Patient 0 has been generated at 6
+Reception: Patient 0 entered the queue at 6
+Reception: Patient 0 started the process at 6 by Receptionist 0
+Begin: Patient 1 has been generated at 11
+Reception: Patient 1 entered the queue at 11
+Reception: Patient 1 started the process at 11 by Receptionist 1
+Begin: Patient 2 has been generated at 17
+Reception: Patient 2 entered the queue at 17
+Reception: Patient 0 finished the process at 20 with duration 14
+Medical: Patient 0 entered the queue at 20
+Reception: Patient 2 started the process at 20 by Receptionist 0
+Medical: Patient 0 started the process at 20 by Doctor 0
+Begin: Patient 3 has been generated at 23
+Reception: Patient 3 entered the queue at 23
+Reception: Patient 1 finished the process at 25 with duration 14
+Medical: Patient 1 entered the queue at 25
+Reception: Patient 3 started the process at 25 by Receptionist 1
+Medical: Patient 1 started the process at 25 by Doctor 1
+Begin: Patient 4 has been generated at 32
+Reception: Patient 4 entered the queue at 32
+Reception: Patient 2 finished the process at 32 with duration 12
+Medical: Patient 2 entered the queue at 32
+Reception: Patient 4 started the process at 32 by Receptionist 0
+Medical: Patient 2 started the process at 32 by Doctor 2
 Begin: Patient 5 has been generated at 38
 Reception: Patient 5 entered the queue at 38
+Reception: Patient 3 finished the process at 38 with duration 13
+Medical: Patient 3 entered the queue at 38
 Reception: Patient 5 started the process at 38 by Receptionist 1
-Medical: Patient 1 finished the process at 40 with duration 19
-Pharmacy: Patient 1 entered the queue at 40
-Pharmacy: Patient 1 started the process at 40 by Pharmaceutical
-Pharmacy: Patient 0 finished the process at 42 with duration 6
-End: Patient 0 finished the simulation at 42
+Medical: Patient 0 finished the process at 40 with duration 20
+Pharmacy: Patient 0 entered the queue at 40
+Medical: Patient 3 started the process at 40 by Doctor 0
+Pharmacy: Patient 0 started the process at 40 by Pharmaceutical
 Begin: Patient 6 has been generated at 43
 Reception: Patient 6 entered the queue at 43
-Reception: Patient 4 finished the process at 45 with duration 12
+Reception: Patient 4 finished the process at 45 with duration 13
 Medical: Patient 4 entered the queue at 45
 Reception: Patient 6 started the process at 45 by Receptionist 0
+Medical: Patient 1 finished the process at 45 with duration 20
+Pharmacy: Patient 1 entered the queue at 45
 Medical: Patient 4 started the process at 45 by Doctor 1
-Pharmacy: Patient 1 finished the process at 47 with duration 7
-End: Patient 1 finished the simulation at 47
-Begin: Patient 7 has been generated at 50
-Reception: Patient 7 entered the queue at 50
-Reception: Patient 5 finished the process at 52 with duration 14
-Medical: Patient 5 entered the queue at 52
-Reception: Patient 7 started the process at 52 by Receptionist 1
-Medical: Patient 3 finished the process at 54 with duration 18
-Pharmacy: Patient 3 entered the queue at 54
-Medical: Patient 5 started the process at 54 by Doctor 0
-Pharmacy: Patient 3 started the process at 54 by Pharmaceutical
-Reception: Patient 6 finished the process at 57 with duration 12
-Medical: Patient 6 entered the queue at 57
-Medical: Patient 2 finished the process at 57 with duration 24
-Pharmacy: Patient 2 entered the queue at 57
-Medical: Patient 6 started the process at 57 by Doctor 2
-Pharmacy: Patient 2 started the process at 57 by Pharmaceutical
-Begin: Patient 8 has been generated at 58
-Reception: Patient 8 entered the queue at 58
-Reception: Patient 8 started the process at 58 by Receptionist 0
-Pharmacy: Patient 3 finished the process at 59 with duration 5
-End: Patient 3 finished the simulation at 59
-Begin: Patient 9 has been generated at 63
-Reception: Patient 9 entered the queue at 63
-Reception: Patient 7 finished the process at 63 with duration 11
-Medical: Patient 7 entered the queue at 63
-Reception: Patient 9 started the process at 63 by Receptionist 1
-Pharmacy: Patient 2 finished the process at 63 with duration 6
-End: Patient 2 finished the simulation at 63
-Medical: Patient 4 finished the process at 64 with duration 19
-Pharmacy: Patient 4 entered the queue at 64
-Medical: Patient 7 started the process at 64 by Doctor 1
-Pharmacy: Patient 4 started the process at 64 by Pharmaceutical
-Reception: Patient 8 finished the process at 69 with duration 11
-Medical: Patient 8 entered the queue at 69
-Medical: Patient 5 finished the process at 71 with duration 17
-Pharmacy: Patient 5 entered the queue at 71
-Medical: Patient 8 started the process at 71 by Doctor 0
-Pharmacy: Patient 4 finished the process at 71 with duration 7
+Pharmacy: Patient 1 started the process at 45 by Pharmaceutical
+Pharmacy: Patient 0 finished the process at 47 with duration 7
+End: Patient 0 finished the simulation at 47
+Begin: Patient 7 has been generated at 48
+Reception: Patient 7 entered the queue at 48
+Reception: Patient 5 finished the process at 50 with duration 12
+Medical: Patient 5 entered the queue at 50
+Reception: Patient 7 started the process at 50 by Receptionist 1
+Pharmacy: Patient 1 finished the process at 51 with duration 6
+End: Patient 1 finished the simulation at 51
+Reception: Patient 6 finished the process at 53 with duration 8
+Medical: Patient 6 entered the queue at 53
+Medical: Patient 2 finished the process at 53 with duration 21
+Pharmacy: Patient 2 entered the queue at 53
+Medical: Patient 5 started the process at 53 by Doctor 2
+Pharmacy: Patient 2 started the process at 53 by Pharmaceutical
+Begin: Patient 8 has been generated at 55
+Reception: Patient 8 entered the queue at 55
+Reception: Patient 8 started the process at 55 by Receptionist 0
+Pharmacy: Patient 2 finished the process at 59 with duration 6
+End: Patient 2 finished the simulation at 59
+Reception: Patient 7 finished the process at 62 with duration 12
+Medical: Patient 7 entered the queue at 62
+Medical: Patient 3 finished the process at 62 with duration 22
+Pharmacy: Patient 3 entered the queue at 62
+Medical: Patient 6 started the process at 62 by Doctor 0
+Pharmacy: Patient 3 started the process at 62 by Pharmaceutical
+Begin: Patient 9 has been generated at 64
+Reception: Patient 9 entered the queue at 64
+Reception: Patient 9 started the process at 64 by Receptionist 1
+Medical: Patient 4 finished the process at 65 with duration 20
+Pharmacy: Patient 4 entered the queue at 65
+Medical: Patient 7 started the process at 65 by Doctor 1
+Pharmacy: Patient 4 started the process at 65 by Pharmaceutical
+Reception: Patient 8 finished the process at 67 with duration 12
+Medical: Patient 8 entered the queue at 67
+Pharmacy: Patient 3 finished the process at 68 with duration 6
+End: Patient 3 finished the simulation at 68
+Medical: Patient 5 finished the process at 70 with duration 17
+Pharmacy: Patient 5 entered the queue at 70
+Medical: Patient 8 started the process at 70 by Doctor 2
+Pharmacy: Patient 5 started the process at 70 by Pharmaceutical
+Pharmacy: Patient 4 finished the process at 71 with duration 6
 End: Patient 4 finished the simulation at 71
-Pharmacy: Patient 5 started the process at 71 by Pharmaceutical
-Reception: Patient 9 finished the process at 74 with duration 11
-Medical: Patient 9 entered the queue at 74
-Medical: Patient 6 finished the process at 74 with duration 17
-Pharmacy: Patient 6 entered the queue at 74
-Medical: Patient 9 started the process at 74 by Doctor 2
-Pharmacy: Patient 6 started the process at 74 by Pharmaceutical
-Pharmacy: Patient 5 finished the process at 77 with duration 6
-End: Patient 5 finished the simulation at 77
-Pharmacy: Patient 6 finished the process at 82 with duration 8
-End: Patient 6 finished the simulation at 82
-Medical: Patient 7 finished the process at 86 with duration 22
-Pharmacy: Patient 7 entered the queue at 86
-Pharmacy: Patient 7 started the process at 86 by Pharmaceutical
-Medical: Patient 8 finished the process at 88 with duration 17
-Pharmacy: Patient 8 entered the queue at 88
-Pharmacy: Patient 8 started the process at 88 by Pharmaceutical
-Pharmacy: Patient 7 finished the process at 92 with duration 6
-End: Patient 7 finished the simulation at 92
-Medical: Patient 9 finished the process at 93 with duration 19
-Pharmacy: Patient 9 entered the queue at 93
-Pharmacy: Patient 9 started the process at 93 by Pharmaceutical
-Pharmacy: Patient 8 finished the process at 94 with duration 6
-End: Patient 8 finished the simulation at 94
-Pharmacy: Patient 9 finished the process at 100 with duration 7
-End: Patient 9 finished the simulation at 100
+Reception: Patient 9 finished the process at 75 with duration 11
+Medical: Patient 9 entered the queue at 75
+Pharmacy: Patient 5 finished the process at 75 with duration 5
+End: Patient 5 finished the simulation at 75
+Medical: Patient 7 finished the process at 82 with duration 17
+Pharmacy: Patient 7 entered the queue at 82
+Medical: Patient 9 started the process at 82 by Doctor 1
+Pharmacy: Patient 7 started the process at 82 by Pharmaceutical
+Medical: Patient 6 finished the process at 86 with duration 24
+Pharmacy: Patient 6 entered the queue at 86
+Pharmacy: Patient 6 started the process at 86 by Pharmaceutical
+Pharmacy: Patient 7 finished the process at 88 with duration 6
+End: Patient 7 finished the simulation at 88
+Medical: Patient 8 finished the process at 89 with duration 19
+Pharmacy: Patient 8 entered the queue at 89
+Pharmacy: Patient 8 started the process at 89 by Pharmaceutical
+Pharmacy: Patient 6 finished the process at 91 with duration 5
+End: Patient 6 finished the simulation at 91
+Pharmacy: Patient 8 finished the process at 96 with duration 7
+End: Patient 8 finished the simulation at 96
+Medical: Patient 9 finished the process at 104 with duration 22
+Pharmacy: Patient 9 entered the queue at 104
+Pharmacy: Patient 9 started the process at 104 by Pharmaceutical
+Pharmacy: Patient 9 finished the process at 110 with duration 6
+End: Patient 9 finished the simulation at 110
 Model: simulation ended
