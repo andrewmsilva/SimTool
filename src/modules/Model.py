@@ -5,6 +5,7 @@ from src.modules.Terminator import Terminator
 
 import csv
 import json
+import numpy as np
 
 class Model(object):
 
@@ -106,9 +107,11 @@ class Model(object):
                 return True
         return False
     
-    def run(self):
+    def run(self, random_state=None):
         self.__currentTime = 0
         self.__resetComponents()
+
+        np.random.seed(random_state)
 
         self.__createLog()
         self.__printLog('Model: simulation started')
