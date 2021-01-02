@@ -28,7 +28,7 @@ model.createProcess(
     min_range=15,
     max_range=25,
     distribution='normal',
-    num_resources=3,
+    num_resources=None,
     resource_name='Doctor'
 )
 

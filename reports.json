@@ -3,37 +3,33 @@
     {
       "name": "Reception",
       "resourceIdleness": [
-        47,
-        40
+        38,
+        36
       ],
-      "minIdleness": 40,
-      "meanIdleness": 43.5,
-      "maxIdleness": 47,
+      "minIdleness": 36,
+      "meanIdleness": 37.0,
+      "maxIdleness": 38,
+      "minQueueWaiting": 1,
+      "meanQueueWaiting": 2.0,
+      "maxQueueWaiting": 3,
+      "immediateProcessing": 6,
+      "minDuration": 10,
+      "meanDuration": 12.4,
+      "maxDuration": 15
+    },
+    {
+      "name": "Medical",
+      "resourceIdleness": null,
+      "minIdleness": null,
+      "meanIdleness": null,
+      "maxIdleness": null,
       "minQueueWaiting": null,
       "meanQueueWaiting": null,
       "maxQueueWaiting": null,
       "immediateProcessing": 10,
-      "minDuration": 9,
-      "meanDuration": 11.7,
-      "maxDuration": 14
-    },
-    {
-      "name": "Medical",
-      "resourceIdleness": [
-        20,
-        41,
-        40
-      ],
-      "minIdleness": 20,
-      "meanIdleness": 33.666666666666664,
-      "maxIdleness": 41,
-      "minQueueWaiting": 1,
-      "meanQueueWaiting": 4.0,
-      "maxQueueWaiting": 8,
-      "immediateProcessing": 5,
-      "minDuration": 18,
-      "meanDuration": 20.5,
-      "maxDuration": 25
+      "minDuration": 17,
+      "meanDuration": 19.6,
+      "maxDuration": 24
     }
   ]
 }
