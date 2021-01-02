@@ -10,7 +10,8 @@ class Model(object):
     def __init__(self):
         self.__components = {}
         self.__currentTime = 0
-        self.__logFile = 'simulation.txt'
+        self.__simulationFile = 'simulation.txt'
+        self.__reportsFile = 'reports.txt'
         # Columns for saving and loading
         self.__columns = [
             # Component attibutes
@@ -27,11 +28,11 @@ class Model(object):
     # Simulation log methods
 
     def __createLog(self):
-        with open(self.__logFile, 'w'):
+        with open(self.__simulationFile, 'w'):
             pass
 
     def __printLog(self, message):
-        with open(self.__logFile, 'a') as f:
+        with open(self.__simulationFile, 'a') as f:
             f.write(message+'\n')
 
     # Component creation methods
@@ -90,6 +91,16 @@ class Model(object):
                 self.__routeEntity(process, entity)
             
             process.process(self.__currentTime)
+    
+    # Reports methods
+
+    def __createReports(self):
+        for name, component in self.__components.items():
+            if isinstance(component, Process):
+                idleness = component.idleness(self.__currentTime)
+                print(idleness)
+        with open(self.__reportsFile, 'w') as f:
+            pass
 
     # Model running method
 
@@ -110,6 +121,8 @@ class Model(object):
             self.__runProcesses()
             self.__currentTime += 1
         self.__printLog('Model: simulation ended')
+
+        self.__createReports()
     
     # Model saving and loading
 
