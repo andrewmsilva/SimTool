@@ -5,7 +5,7 @@ from copy import deepcopy
 
 class Process(Component):
     
-    def __init__(self, name, target, min_range, max_range, distribution='uniform', num_resources=1, resource_name='resource', discipline='FCFS'):
+    def __init__(self, name, target, min_range, max_range, distribution='uniform', num_resources=None, resource_name='resource', discipline='FCFS'):
         super(Process, self).__init__(name, target)
 
         self.setRandom(min_range, max_range, distribution)
@@ -17,7 +17,12 @@ class Process(Component):
         self.reset()
     
     def reset(self):
-        self.__resources = [ Resource(self.__resourceName+' '+str(i)) for i in range(self.__numResources) ]
+        if isinstance(self.__numResources, int):
+            self.__resources = [ Resource(self.__resourceName+' '+str(i)) for i in range(self.__numResources) ]
+        else:
+            self.__resources = [ Resource(self.__resourceName, never_busy=True) ]
+
+    
         self.__queue = []
         self.__output = []
 
@@ -64,8 +69,7 @@ class Process(Component):
         return entity
     
     def process(self, current_time):
-        for i in range(self.__numResources):
-            resource = self.__resources[i]
+        for resource in self.__resources:
             if len(self.__queue) > 0:
                 if not resource.busy(current_time):
                     # Scheduling
@@ -104,7 +108,10 @@ class Process(Component):
     # Reports
 
     def reportIdleness(self, end_time):
-        return [ resource.idleness(end_time) for resource in self.__resources ]
+        idleness = []
+        if isinstance(self.__numResources, int):
+            idleness = [ resource.idleness(end_time) for resource in self.__resources ]
+        return idleness
     
     def reportQueueWaiting(self):
         return self.__queueWaiting
