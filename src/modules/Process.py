@@ -35,6 +35,7 @@ class Process(Component):
     def receiveEntity(self, entity):
         self.printLog('{}: {} entered the queue at {}'.format(self.name, entity.name, entity.currentTime))
         self.__queue.append(entity)
+        self.process(entity.currentTime)
     
     def outputEntities(self, current_time):
         output = []
@@ -68,26 +69,34 @@ class Process(Component):
             del self.__queue[-1]
         return entity
     
-    def process(self, current_time):
-        for resource in self.__resources:
-            if len(self.__queue) > 0:
-                if not resource.busy(current_time):
-                    # Scheduling
-                    entity = self.__getNextEntity()
-                    # Computing waiting time
-                    waiting_time = current_time-entity.currentTime
-                    if waiting_time > 0:
-                        self.__waitingTime.append(waiting_time)
-                    else:
-                        self.__immediateProcessing += 1
-                    # Processing entity
-                    duration = self.getRandomNumber()
-                    self.__durationTime.append(duration)
-                    resource.process(entity, current_time, duration)
-                    self.printLog('{}: {} started the process at {} by {}'.format(self.name, entity.name, current_time, resource.name))
+    def __processing(self, resource, current_time):
+        if not resource.busy(current_time):
+            # Scheduling
+            entity = self.__getNextEntity()
+            # Computing waiting time
+            waiting_time = current_time-entity.currentTime
+            if waiting_time > 0:
+                self.__waitingTime.append(waiting_time)
+            else:
+                self.__immediateProcessing += 1
+            # Processing entity
+            duration = self.getRandomNumber()
+            self.__durationTime.append(duration)
+            resource.process(entity, current_time, duration)
+            self.printLog('{}: {} started the process at {} by {}'.format(self.name, entity.name, current_time, resource.name))
 
-                    entity.appendEvent(self.name, current_time, duration)
-                    self.__output.append(entity)
+            entity.appendEvent(self.name, current_time, duration)
+            self.__output.append(entity)
+    
+    def process(self, current_time):
+        if self.__numResources == None:
+            while len(self.__queue) > 0:
+                self.__processing(self.__resources[0], current_time)
+        else:
+            for resource in self.__resources:
+                if len(self.__queue) > 0:
+                    self.__processing(resource, current_time)
+                    
         waiting_count = len(self.__queue)
         if waiting_count > 0:
             self.__waitingCount.append(waiting_count)
