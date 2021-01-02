@@ -183,9 +183,9 @@ class Model(object):
                     'name': component.name,
                     'resource_idleness': [ idleness_ for name_, idleness_ in resource_idleness ],
                     'mean_idleness': sum([ idleness_ for name_, idleness_ in resource_idleness ])/len(resource_idleness),
-                    'min_queue_waiting': min(queue_waiting),
-                    'mean_queue_waiting': sum(queue_waiting)/len(queue_waiting),
-                    'max_queue_waiting': max(queue_waiting),
+                    'min_queue_waiting': min(queue_waiting) if len(queue_waiting) > 0 else None,
+                    'mean_queue_waiting': sum(queue_waiting)/len(queue_waiting)  if len(queue_waiting) > 0 else None,
+                    'max_queue_waiting': max(queue_waiting) if len(queue_waiting) > 0 else None,
                 })
         reports_json = json.dumps(reports, indent=2)
         # print(reports_json)
