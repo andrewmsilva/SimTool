@@ -104,7 +104,7 @@ class Process(Component):
     # Reports
 
     def reportIdleness(self, end_time):
-        return [ (resource.name, resource.idleness(end_time)) for resource in self.__resources ]
+        return [ resource.idleness(end_time) for resource in self.__resources ]
     
     def reportQueueWaiting(self):
         return self.__queueWaiting
