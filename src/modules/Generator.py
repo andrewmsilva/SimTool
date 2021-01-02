@@ -10,7 +10,11 @@ class Generator(Component):
 
         self.__entityName = entity_name
         self.__maxEntities = max_entities
-        self.__remainingEntities = max_entities
+        
+        self.reset()
+    
+    def reset(self):
+        self.__remainingEntities = self.__maxEntities
         self.__nextEntity = None
 
     @property
