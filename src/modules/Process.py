@@ -22,13 +22,13 @@ class Process(Component):
         else:
             self.__resources = [ Resource(self.__resourceName, never_busy=True) ]
 
-    
         self.__queue = []
         self.__output = []
 
-        self.__queueWaiting = []
+        self.__waitingTime = []
+        self.__waitingCount = []
+        self.__durationTime = []
         self.__immediateProcessing = 0
-        self.__durations = []
     
     # Input and output management
     
@@ -77,17 +77,20 @@ class Process(Component):
                     # Computing waiting time
                     waiting_time = current_time-entity.currentTime
                     if waiting_time > 0:
-                        self.__queueWaiting.append(waiting_time)
+                        self.__waitingTime.append(waiting_time)
                     else:
                         self.__immediateProcessing += 1
                     # Processing entity
                     duration = self.getRandomNumber()
-                    self.__durations.append(duration)
+                    self.__durationTime.append(duration)
                     resource.process(entity, current_time, duration)
                     self.printLog('{}: {} started the process at {} by {}'.format(self.name, entity.name, current_time, resource.name))
 
                     entity.appendEvent(self.name, current_time, duration)
                     self.__output.append(entity)
+        waiting_count = len(self.__queue)
+        if waiting_count > 0:
+            self.__waitingCount.append(waiting_count)
     
     # Saving
 
@@ -107,17 +110,20 @@ class Process(Component):
     
     # Reports
 
-    def reportIdleness(self, end_time):
-        idleness = []
+    def reportIdleTime(self, end_time):
+        idle_time = []
         if isinstance(self.__numResources, int):
-            idleness = [ resource.idleness(end_time) for resource in self.__resources ]
-        return idleness
+            idle_time = [ resource.idleTime(end_time) for resource in self.__resources ]
+        return idle_time
     
-    def reportQueueWaiting(self):
-        return self.__queueWaiting
+    def reportWaitingTime(self):
+        return self.__waitingTime
+    
+    def reportWaitingCount(self):
+        return self.__waitingCount
     
     def reportImmediateProcessing(self):
         return self.__immediateProcessing
     
-    def reportDurations(self):
-        return self.__durations
+    def reportDurationTime(self):
+        return self.__durationTime
