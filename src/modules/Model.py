@@ -181,11 +181,11 @@ class Model(object):
                 queue_waiting = component.reportQueueWaiting()
                 reports['procesess'].append({
                     'name': component.name,
-                    'resource_idleness': [ idleness_ for name_, idleness_ in resource_idleness ],
-                    'mean_idleness': sum([ idleness_ for name_, idleness_ in resource_idleness ])/len(resource_idleness),
-                    'min_queue_waiting': min(queue_waiting) if len(queue_waiting) > 0 else None,
-                    'mean_queue_waiting': sum(queue_waiting)/len(queue_waiting)  if len(queue_waiting) > 0 else None,
-                    'max_queue_waiting': max(queue_waiting) if len(queue_waiting) > 0 else None,
+                    'resourceIdleness': [ idleness_ for name_, idleness_ in resource_idleness ],
+                    'meanIdleness': sum([ idleness_ for name_, idleness_ in resource_idleness ])/len(resource_idleness),
+                    'minQueueWaiting': min(queue_waiting) if len(queue_waiting) > 0 else None,
+                    'meanQueueWaiting': sum(queue_waiting)/len(queue_waiting)  if len(queue_waiting) > 0 else None,
+                    'maxQueueWaiting': max(queue_waiting) if len(queue_waiting) > 0 else None,
                 })
         reports_json = json.dumps(reports, indent=2)
         # print(reports_json)
