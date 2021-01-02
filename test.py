@@ -8,8 +8,8 @@ except:
     model.createGenerator(
         name='Begin',
         target='Reception',
-        min_range=2,
-        max_range=5,
+        min_range=3,
+        max_range=8,
         distribution='normal',
         max_entities=10,
         entity_name='Patient'
@@ -18,8 +18,8 @@ except:
     model.createProcess(
         name='Reception',
         target='Medical',
-        min_range=7,
-        max_range=12,
+        min_range=8,
+        max_range=15,
         distribution='normal',
         num_resources=2,
         resource_name='Receptionist'
@@ -31,6 +31,7 @@ except:
         min_range=15,
         max_range=25,
         distribution='normal',
+        num_resources=3,
         resource_name='Doctor'
     )
 
