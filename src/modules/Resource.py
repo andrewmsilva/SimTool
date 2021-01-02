@@ -27,13 +27,13 @@ class Resource(object):
             last_event = self.__events[-1]
         return not (last_event == None or last_event.end <= current_time)
 
-    def idleness(self, end_time):
+    def idleTime(self, end_time):
         if self.__neverBusy:
             return None
-        idleness = 0
+        idle_time = 0
         last_time = 0
         for event in self.__events:
-            idleness += event.start - last_time
+            idle_time += event.start - last_time
             last_time = event.end
-        idleness += end_time - last_time
-        return idleness
+        idle_time += end_time - last_time
+        return idle_time
