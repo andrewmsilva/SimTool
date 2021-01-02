@@ -179,6 +179,7 @@ class Model(object):
             if isinstance(component, Process):
                 resource_idleness = component.reportIdleness(self.__currentTime)
                 queue_waiting = component.reportQueueWaiting()
+                immediate_processing = component.reportImmediateProcessing()
                 reports['procesess'].append({
                     'name': component.name,
                     'resourceIdleness': [ idleness_ for name_, idleness_ in resource_idleness ],
@@ -186,6 +187,7 @@ class Model(object):
                     'minQueueWaiting': min(queue_waiting) if len(queue_waiting) > 0 else None,
                     'meanQueueWaiting': sum(queue_waiting)/len(queue_waiting)  if len(queue_waiting) > 0 else None,
                     'maxQueueWaiting': max(queue_waiting) if len(queue_waiting) > 0 else None,
+                    'immediateProcessing': immediate_processing,
                 })
         reports_json = json.dumps(reports, indent=2)
         # print(reports_json)
