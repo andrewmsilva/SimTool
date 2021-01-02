@@ -21,6 +21,7 @@ class Process(Component):
         self.__queue = []
         self.__output = []
         self.__queueWaiting = []
+        self.__immediateProcessing = 0
     
     # Input and output management
     
@@ -65,8 +66,14 @@ class Process(Component):
             resource = self.__resources[i]
             if len(self.__queue) > 0:
                 if not resource.busy(current_time):
+                    # Scheduling
                     entity = self.__getNextEntity()
-                    self.__queueWaiting.append(current_time-entity.currentTime)
+                    # Computing waiting time
+                    waiting_time = current_time-entity.currentTime
+                    if waiting_time > 0:
+                        self.__queueWaiting.append(waiting_time)
+                    else:
+                        self.__immediateProcessing += 1
                     duration = self.getRandomNumber()
                     resource.process(entity, current_time, duration)
                     self.printLog('{}: {} started the process at {} by {}'.format(self.name, entity.name, current_time, resource.name))
@@ -97,3 +104,6 @@ class Process(Component):
     
     def reportQueueWaiting(self):
         return self.__queueWaiting
+    
+    def reportImmediateProcessing(self):
+        return self.__immediateProcessing
