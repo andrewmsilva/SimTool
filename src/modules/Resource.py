@@ -23,3 +23,12 @@ class Resource(object):
         if len(self.__events) > 0:
             last_event = self.__events[-1]
         return not (last_event == None or last_event.end <= current_time)
+
+    def idleness(self, end_time):
+        idleness = 0
+        last_time = 0
+        for event in self.__events:
+            idleness += event.start - last_time
+            last_time = event.end
+        idleness += end_time - last_time
+        return idleness
