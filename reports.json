@@ -3,27 +3,33 @@
     {
       "name": "Reception",
       "resourceIdleness": [
-        44,
-        48
+        48,
+        38
       ],
-      "meanIdleness": 46.0,
-      "minQueueWaiting": 2,
-      "meanQueueWaiting": 2.0,
-      "maxQueueWaiting": 2,
-      "immediateProcessing": 9
+      "meanIdleness": 43.0,
+      "minQueueWaiting": null,
+      "meanQueueWaiting": null,
+      "maxQueueWaiting": null,
+      "immediateProcessing": 10,
+      "minDuration": 9,
+      "meanDuration": 12.0,
+      "maxDuration": 14
     },
     {
       "name": "Medical",
       "resourceIdleness": [
-        17,
-        42,
-        43
+        27,
+        43,
+        37
       ],
-      "meanIdleness": 34.0,
-      "minQueueWaiting": 1,
-      "meanQueueWaiting": 4.0,
-      "maxQueueWaiting": 9,
-      "immediateProcessing": 6
+      "meanIdleness": 35.666666666666664,
+      "minQueueWaiting": 2,
+      "meanQueueWaiting": 2.5,
+      "maxQueueWaiting": 3,
+      "immediateProcessing": 8,
+      "minDuration": 17,
+      "meanDuration": 20.2,
+      "maxDuration": 23
     }
   ]
 }
