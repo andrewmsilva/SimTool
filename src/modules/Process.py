@@ -79,3 +79,7 @@ class Process(Component):
         row['discipline'] = self.__discipline
 
         writer.writerow(row)
+    
+
+    def idleness(self, end_time):
+        return [ (resource.name, resource.idleness(end_time)) for resource in self.__resources ]
