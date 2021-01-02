@@ -24,12 +24,22 @@ model.createProcess(
 
 model.createProcess(
     name='Medical',
-    target='End',
+    target='Pharmacy',
     min_range=15,
     max_range=25,
     distribution='normal',
-    num_resources=None,
+    num_resources=3,
     resource_name='Doctor'
+)
+
+model.createProcess(
+    name='Pharmacy',
+    target='End',
+    min_range=5,
+    max_range=8,
+    distribution='normal',
+    num_resources=None,
+    resource_name='Pharmaceutical'
 )
 
 model.createTerminator(name='End')

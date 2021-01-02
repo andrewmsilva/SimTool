@@ -2,34 +2,61 @@
   "procesess": [
     {
       "name": "Reception",
-      "resourceIdleness": [
+      "resourceIdleTime": [
         38,
-        36
+        42
       ],
-      "minIdleness": 36,
-      "meanIdleness": 37.0,
-      "maxIdleness": 38,
-      "minQueueWaiting": 1,
-      "meanQueueWaiting": 2.0,
-      "maxQueueWaiting": 3,
+      "minIdleTime": 38,
+      "meanIdleTime": 40.0,
+      "maxIdleTime": 42,
+      "minDurationTime": 11,
+      "meanDurationTime": 12.2,
+      "maxDurationTime": 15,
       "immediateProcessing": 6,
-      "minDuration": 10,
-      "meanDuration": 12.4,
-      "maxDuration": 15
+      "minWaitingTime": 2,
+      "meanWaitingTime": 2.0,
+      "maxWaitingTime": 2,
+      "minWaitingCount": 1,
+      "meanWaitingCount": 1.0,
+      "maxWaitingCount": 1
     },
     {
       "name": "Medical",
-      "resourceIdleness": null,
-      "minIdleness": null,
-      "meanIdleness": null,
-      "maxIdleness": null,
-      "minQueueWaiting": null,
-      "meanQueueWaiting": null,
-      "maxQueueWaiting": null,
+      "resourceIdleTime": [
+        31,
+        41,
+        41
+      ],
+      "minIdleTime": 31,
+      "meanIdleTime": 37.666666666666664,
+      "maxIdleTime": 41,
+      "minDurationTime": 17,
+      "meanDurationTime": 19.0,
+      "maxDurationTime": 24,
+      "immediateProcessing": 7,
+      "minWaitingTime": 1,
+      "meanWaitingTime": 1.6666666666666667,
+      "maxWaitingTime": 2,
+      "minWaitingCount": 1,
+      "meanWaitingCount": 1.0,
+      "maxWaitingCount": 1
+    },
+    {
+      "name": "Pharmacy",
+      "resourceIdleTime": null,
+      "minIdleTime": null,
+      "meanIdleTime": null,
+      "maxIdleTime": null,
+      "minDurationTime": 5,
+      "meanDurationTime": 6.4,
+      "maxDurationTime": 8,
       "immediateProcessing": 10,
-      "minDuration": 17,
-      "meanDuration": 19.6,
-      "maxDuration": 24
+      "minWaitingTime": null,
+      "meanWaitingTime": null,
+      "maxWaitingTime": null,
+      "minWaitingCount": null,
+      "meanWaitingCount": null,
+      "maxWaitingCount": null
     }
   ]
 }
