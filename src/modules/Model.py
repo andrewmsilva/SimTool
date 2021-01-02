@@ -177,13 +177,15 @@ class Model(object):
         }
         for name, component in self.__components.items():
             if isinstance(component, Process):
-                resource_idleness = component.reportIdleness(self.__currentTime)
+                idleness = component.reportIdleness(self.__currentTime)
                 queue_waiting = component.reportQueueWaiting()
                 durations = component.reportDurations()
                 reports['procesess'].append({
                     'name': component.name,
-                    'resourceIdleness': [ idleness_ for name_, idleness_ in resource_idleness ],
-                    'meanIdleness': sum([ idleness_ for name_, idleness_ in resource_idleness ])/len(resource_idleness),
+                    'resourceIdleness': idleness,
+                    'minIdleness': min(idleness),
+                    'meanIdleness': sum(idleness)/len(idleness),
+                    'maxIdleness': max(idleness),
                     'minQueueWaiting': min(queue_waiting) if len(queue_waiting) > 0 else None,
                     'meanQueueWaiting': sum(queue_waiting)/len(queue_waiting)  if len(queue_waiting) > 0 else None,
                     'maxQueueWaiting': max(queue_waiting) if len(queue_waiting) > 0 else None,
