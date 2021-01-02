@@ -8,7 +8,7 @@ model.createGenerator(
     min_range=3,
     max_range=8,
     distribution='normal',
-    max_entities=10,
+    max_entities=1000,
     entity_name='Patient'
 )
 
