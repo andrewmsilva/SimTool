@@ -12,12 +12,17 @@ class Process(Component):
 
         self.__numResources = num_resources
         self.__resourceName = resource_name
-        self.__resources = [ Resource(self.__resourceName+' '+str(i)) for i in range(self.__numResources) ]
-        
         self.__discipline = discipline
-        self.__queue = []
 
+        self.reset()
+    
+    def reset(self):
+        self.__resources = [ Resource(self.__resourceName+' '+str(i)) for i in range(self.__numResources) ]
+        self.__queue = []
         self.__output = []
+        self.__queueWaiting = []
+    
+    # Input and output management
     
     def receiveEntity(self, entity):
         self.printLog('{}: {} entered the queue at {}'.format(self.name, entity.name, entity.currentTime))
@@ -39,6 +44,8 @@ class Process(Component):
         
         return output
     
+    # Processing
+    
     @property
     def processing(self):
         return len(self.__queue) > 0 or len(self.__output) > 0
@@ -59,6 +66,7 @@ class Process(Component):
             if len(self.__queue) > 0:
                 if not resource.busy(current_time):
                     entity = self.__getNextEntity()
+                    self.__queueWaiting.append(current_time-entity.currentTime)
                     duration = self.getRandomNumber()
                     resource.process(entity, current_time, duration)
                     self.printLog('{}: {} started the process at {} by {}'.format(self.name, entity.name, current_time, resource.name))
@@ -66,6 +74,8 @@ class Process(Component):
                     entity.appendEvent(self.name, current_time, duration)
                     self.__output.append(entity)
     
+    # Saving
+
     def saveMe(self, writer, columns):
         row = { key: None for key in columns }
         row['type'] = 'P'
@@ -80,6 +90,10 @@ class Process(Component):
 
         writer.writerow(row)
     
+    # Reports
 
-    def idleness(self, end_time):
+    def reportIdleness(self, end_time):
         return [ (resource.name, resource.idleness(end_time)) for resource in self.__resources ]
+    
+    def reportQueueWaiting(self):
+        return self.__queueWaiting
