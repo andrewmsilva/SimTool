@@ -177,22 +177,26 @@ class Model(object):
         }
         for name, component in self.__components.items():
             if isinstance(component, Process):
-                idleness = component.reportIdleness(self.__currentTime)
-                queue_waiting = component.reportQueueWaiting()
-                durations = component.reportDurations()
+                idle_time = component.reportIdleTime(self.__currentTime)
+                waiting_time = component.reportWaitingTime()
+                waiting_count = component.reportWaitingCount()
+                durations = component.reportDurationTime()
                 reports['procesess'].append({
                     'name': component.name,
-                    'resourceIdleness': idleness if len(idleness) > 0 else None,
-                    'minIdleness': min(idleness) if len(idleness) > 0 else None,
-                    'meanIdleness': sum(idleness)/len(idleness) if len(idleness) > 0 else None,
-                    'maxIdleness': max(idleness) if len(idleness) > 0 else None,
-                    'minQueueWaiting': min(queue_waiting) if len(queue_waiting) > 0 else None,
-                    'meanQueueWaiting': sum(queue_waiting)/len(queue_waiting) if len(queue_waiting) > 0 else None,
-                    'maxQueueWaiting': max(queue_waiting) if len(queue_waiting) > 0 else None,
+                    'resourceIdleTime': idle_time if len(idle_time) > 0 else None,
+                    'minIdleTime': min(idle_time) if len(idle_time) > 0 else None,
+                    'meanIdleTime': sum(idle_time)/len(idle_time) if len(idle_time) > 0 else None,
+                    'maxIdleTime': max(idle_time) if len(idle_time) > 0 else None,
+                    'minDurationTime': min(durations) if len(durations) > 0 else None,
+                    'meanDurationTime': sum(durations)/len(durations) if len(durations) > 0 else None,
+                    'maxDurationTime': max(durations) if len(durations) > 0 else None,
                     'immediateProcessing': component.reportImmediateProcessing(),
-                    'minDuration': min(durations) if len(durations) > 0 else None,
-                    'meanDuration': sum(durations)/len(durations) if len(durations) > 0 else None,
-                    'maxDuration': max(durations) if len(durations) > 0 else None,
+                    'minWaitingTime': min(waiting_time) if len(waiting_time) > 0 else None,
+                    'meanWaitingTime': sum(waiting_time)/len(waiting_time) if len(waiting_time) > 0 else None,
+                    'maxWaitingTime': max(waiting_time) if len(waiting_time) > 0 else None,
+                    'minWaitingCount': min(waiting_count) if len(waiting_count) > 0 else None,
+                    'meanWaitingCount': sum(waiting_count)/len(waiting_count) if len(waiting_count) > 0 else None,
+                    'maxWaitingCount': max(waiting_count) if len(waiting_count) > 0 else None,
                 })
         reports_json = json.dumps(reports, indent=2)
         # print(reports_json)
