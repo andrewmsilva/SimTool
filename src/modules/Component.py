@@ -7,6 +7,9 @@ class Component(object):
         self.__target = target
         self.__random = None
     
+    def reset(self):
+        pass
+    
     @property
     def name(self):
         return self.__name
