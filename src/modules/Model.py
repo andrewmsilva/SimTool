@@ -4,6 +4,7 @@ from src.modules.Router import Router
 from src.modules.Terminator import Terminator
 
 import csv
+import json
 
 class Model(object):
 
@@ -11,7 +12,7 @@ class Model(object):
         self.__components = {}
         self.__currentTime = 0
         self.__simulationFile = 'simulation.txt'
-        self.__reportsFile = 'reports.txt'
+        self.__reportsFile = 'reports.json'
         # Columns for saving and loading
         self.__columns = [
             # Component attibutes
@@ -92,17 +93,11 @@ class Model(object):
             
             process.process(self.__currentTime)
     
-    # Reports methods
-
-    def __createReports(self):
+    def __resetComponents(self):
         for name, component in self.__components.items():
-            if isinstance(component, Process):
-                idleness = component.idleness(self.__currentTime)
-                print(idleness)
-        with open(self.__reportsFile, 'w') as f:
-            pass
+            component.reset()
 
-    # Model running method
+    # Running
 
     @property
     def running(self):
@@ -113,7 +108,8 @@ class Model(object):
     
     def run(self):
         self.__currentTime = 0
-        
+        self.__resetComponents()
+
         self.__createLog()
         self.__printLog('Model: simulation started')
         while self.running:
@@ -172,3 +168,26 @@ class Model(object):
                         name=row['name']
                     )
         return model
+    
+    # Reports
+
+    def __createReports(self):
+        reports = {
+            'procesess': [],
+        }
+        for name, component in self.__components.items():
+            if isinstance(component, Process):
+                resource_idleness = component.reportIdleness(self.__currentTime)
+                queue_waiting = component.reportQueueWaiting()
+                reports['procesess'].append({
+                    'name': component.name,
+                    'resource_idleness': [ idleness_ for name_, idleness_ in resource_idleness ],
+                    'mean_idleness': sum([ idleness_ for name_, idleness_ in resource_idleness ])/len(resource_idleness),
+                    'min_queue_waiting': min(queue_waiting),
+                    'mean_queue_waiting': sum(queue_waiting)/len(queue_waiting),
+                    'max_queue_waiting': max(queue_waiting),
+                })
+        reports_json = json.dumps(reports, indent=2)
+        # print(reports_json)
+        with open(self.__reportsFile, 'w') as f:
+            f.write(reports_json)
