@@ -153,7 +153,7 @@ class Model(object):
                         min_range=int(row['min_range']),
                         max_range=int(row['max_range']),
                         distribution=row['distribution'],
-                        num_resources=int(row['num_resources']),
+                        num_resources=int(row['num_resources']) if row['num_resources'] else None,
                         resource_name=row['resource_name'],
                         discipline=row['discipline']
                     )
@@ -182,16 +182,16 @@ class Model(object):
                 durations = component.reportDurations()
                 reports['procesess'].append({
                     'name': component.name,
-                    'resourceIdleness': idleness,
-                    'minIdleness': min(idleness),
-                    'meanIdleness': sum(idleness)/len(idleness),
-                    'maxIdleness': max(idleness),
+                    'resourceIdleness': idleness if len(idleness) > 0 else None,
+                    'minIdleness': min(idleness) if len(idleness) > 0 else None,
+                    'meanIdleness': sum(idleness)/len(idleness) if len(idleness) > 0 else None,
+                    'maxIdleness': max(idleness) if len(idleness) > 0 else None,
                     'minQueueWaiting': min(queue_waiting) if len(queue_waiting) > 0 else None,
-                    'meanQueueWaiting': sum(queue_waiting)/len(queue_waiting)  if len(queue_waiting) > 0 else None,
+                    'meanQueueWaiting': sum(queue_waiting)/len(queue_waiting) if len(queue_waiting) > 0 else None,
                     'maxQueueWaiting': max(queue_waiting) if len(queue_waiting) > 0 else None,
                     'immediateProcessing': component.reportImmediateProcessing(),
                     'minDuration': min(durations) if len(durations) > 0 else None,
-                    'meanDuration': sum(durations)/len(durations)  if len(durations) > 0 else None,
+                    'meanDuration': sum(durations)/len(durations) if len(durations) > 0 else None,
                     'maxDuration': max(durations) if len(durations) > 0 else None,
                 })
         reports_json = json.dumps(reports, indent=2)
