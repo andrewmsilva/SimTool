@@ -33,7 +33,7 @@ class Process(Component):
     # Input and output management
     
     def receiveEntity(self, entity):
-        self.printLog('{}: {} entered the queue at {}'.format(self.name, entity.name, entity.currentTime))
+        self.printLog('{}: {} entered at {}'.format(self.name, entity.name, entity.currentTime))
         self.__queue.append(entity)
         self.process(entity.currentTime)
     
@@ -77,13 +77,14 @@ class Process(Component):
             waiting_time = current_time-entity.currentTime
             if waiting_time > 0:
                 self.__waitingTime.append(waiting_time)
+                self.printLog('{}: {} started the process at {} by {}'.format(self.name, entity.name, current_time, resource.name))
             else:
                 self.__immediateProcessing += 1
+                self.printLog('{}: {} started the process immediately by {}'.format(self.name, entity.name, resource.name))
             # Processing entity
             duration = self.getRandomNumber()
             self.__durationTime.append(duration)
             resource.process(entity, current_time, duration)
-            self.printLog('{}: {} started the process at {} by {}'.format(self.name, entity.name, current_time, resource.name))
 
             entity.appendEvent(self.name, current_time, duration)
             self.__output.append(entity)
