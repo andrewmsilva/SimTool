@@ -3,7 +3,7 @@ from src.SimTool import Model
 model = Model()
 
 model.createGenerator(
-    name='Begin',
+    name='Entry',
     target='Reception',
     min_range=3,
     max_range=8,
@@ -24,7 +24,7 @@ model.createProcess(
 
 model.createProcess(
     name='Medical',
-    target='Pharmacy',
+    target='Assistent',
     min_range=15,
     max_range=25,
     distribution='normal',
@@ -32,9 +32,15 @@ model.createProcess(
     resource_name='Doctor'
 )
 
+model.createRouter(
+    name='Assistent',
+    targets=['Pharmacy', 'Exit'],
+    distribution='uniform'
+)
+
 model.createProcess(
     name='Pharmacy',
-    target='End',
+    target='Exit',
     min_range=5,
     max_range=8,
     distribution='normal',
@@ -42,7 +48,7 @@ model.createProcess(
     resource_name='Pharmaceutical'
 )
 
-model.createTerminator(name='End')
+model.createTerminator(name='Exit')
 
 model.save('model.csv')
 model.run(random_state=0)

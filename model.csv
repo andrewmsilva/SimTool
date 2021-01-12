@@ -1,6 +1,7 @@
 type,name,target,min_range,max_range,distribution,max_entities,entity_name,num_resources,resource_name,discipline
-G,Begin,Reception,3,8,normal,1000,Patient,,,
+G,Entry,Reception,3,8,normal,1000,Patient,,,
 P,Reception,Medical,8,15,normal,,,2,Receptionist,FCFS
-P,Medical,Pharmacy,15,25,normal,,,3,Doctor,FCFS
-P,Pharmacy,End,5,8,normal,,,,Pharmaceutical,FCFS
-T,End,,,,,,,,,
+P,Medical,Assistent,15,25,normal,,,3,Doctor,FCFS
+R,Assistent,Pharmacy$$Exit,,,uniform,,,,,
+P,Pharmacy,Exit,5,8,normal,,,,Pharmaceutical,FCFS
+T,Exit,,,,,,,,,
