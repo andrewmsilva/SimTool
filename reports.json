@@ -1,62 +1,60 @@
-{
-  "procesess": [
-    {
-      "name": "Reception",
-      "resourceIdleTime": [
-        851,
-        984
-      ],
-      "minIdleTime": 851,
-      "meanIdleTime": 917.5,
-      "maxIdleTime": 984,
-      "minDurationTime": 8,
-      "meanDurationTime": 11.483,
-      "maxDurationTime": 15,
-      "immediateProcessing": 667,
-      "minWaitingTime": 1,
-      "meanWaitingTime": 2.6216216216216215,
-      "maxWaitingTime": 9,
-      "minWaitingCount": 1,
-      "meanWaitingCount": 1.0192953020134228,
-      "maxWaitingCount": 2
-    },
-    {
-      "name": "Medical",
-      "resourceIdleTime": [
-        28,
-        41,
-        45
-      ],
-      "minIdleTime": 28,
-      "meanIdleTime": 38.0,
-      "maxIdleTime": 45,
-      "minDurationTime": 15,
-      "meanDurationTime": 19.863,
-      "maxDurationTime": 25,
-      "immediateProcessing": 8,
-      "minWaitingTime": 1,
-      "meanWaitingTime": 78.06350806451613,
-      "maxWaitingTime": 141,
-      "minWaitingCount": 1,
-      "meanWaitingCount": 11.89306588735388,
-      "maxWaitingCount": 22
-    },
-    {
-      "name": "Pharmacy",
-      "resourceIdleTime": null,
-      "minIdleTime": null,
-      "meanIdleTime": null,
-      "maxIdleTime": null,
-      "minDurationTime": 5,
-      "meanDurationTime": 6.481,
-      "maxDurationTime": 8,
-      "immediateProcessing": 1000,
-      "minWaitingTime": null,
-      "meanWaitingTime": null,
-      "maxWaitingTime": null,
-      "minWaitingCount": null,
-      "meanWaitingCount": null,
-      "maxWaitingCount": null
-    }
-  ]
-}
+[
+  {
+    "name": "Reception",
+    "resourceIdleTime": [
+      851,
+      984
+    ],
+    "minIdleTime": 851,
+    "meanIdleTime": 917.5,
+    "maxIdleTime": 984,
+    "minDurationTime": 8,
+    "meanDurationTime": 11.483,
+    "maxDurationTime": 15,
+    "immediateProcessing": 667,
+    "minWaitingTime": 1,
+    "meanWaitingTime": 2.6216216216216215,
+    "maxWaitingTime": 9,
+    "minWaitingCount": 1,
+    "meanWaitingCount": 1.0192953020134228,
+    "maxWaitingCount": 2
+  },
+  {
+    "name": "Medical",
+    "resourceIdleTime": [
+      28,
+      41,
+      45
+    ],
+    "minIdleTime": 28,
+    "meanIdleTime": 38.0,
+    "maxIdleTime": 45,
+    "minDurationTime": 15,
+    "meanDurationTime": 19.863,
+    "maxDurationTime": 25,
+    "immediateProcessing": 8,
+    "minWaitingTime": 1,
+    "meanWaitingTime": 78.06350806451613,
+    "maxWaitingTime": 141,
+    "minWaitingCount": 1,
+    "meanWaitingCount": 11.89306588735388,
+    "maxWaitingCount": 22
+  },
+  {
+    "name": "Pharmacy",
+    "resourceIdleTime": null,
+    "minIdleTime": null,
+    "meanIdleTime": null,
+    "maxIdleTime": null,
+    "minDurationTime": 5,
+    "meanDurationTime": 6.481,
+    "maxDurationTime": 8,
+    "immediateProcessing": 1000,
+    "minWaitingTime": null,
+    "meanWaitingTime": null,
+    "maxWaitingTime": null,
+    "minWaitingCount": null,
+    "meanWaitingCount": null,
+    "maxWaitingCount": null
+  }
+]
