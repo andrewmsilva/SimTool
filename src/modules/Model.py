@@ -175,16 +175,14 @@ class Model(object):
     # Reports
 
     def __createReports(self):
-        reports = {
-            'procesess': [],
-        }
+        reports = []
         for name, component in self.__components.items():
             if isinstance(component, Process):
                 idle_time = component.reportIdleTime(self.__currentTime)
                 waiting_time = component.reportWaitingTime()
                 waiting_count = component.reportWaitingCount()
                 durations = component.reportDurationTime()
-                reports['procesess'].append({
+                reports.append({
                     'name': component.name,
                     'resourceIdleTime': idle_time if len(idle_time) > 0 else None,
                     'minIdleTime': min(idle_time) if len(idle_time) > 0 else None,
