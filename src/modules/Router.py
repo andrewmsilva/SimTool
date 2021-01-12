@@ -11,7 +11,7 @@ class Router(Component):
     @property
     def target(self):
         target = self.__targets[self.getRandomNumber()]
-        self.printLog('routed to', target)
+        self.printLog('{}: rounting to {}'.format(self.name, target))
         return target
     
     def saveMe(self, writer, columns):
